@@ -1,0 +1,46 @@
+---
+language: python
+
+python:
+  - 3.8
+
+sudo: false
+
+services:
+  - docker
+
+# Docker-compose setup
+# https://docs.travis-ci.com/user/docker/
+env:
+  global:
+    - DOCKER_COMPOSE_VERSION=1.25.0
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - cp -rf .env.example .env
+
+before_script:
+  - make python.setup
+  - make go.setup
+  - make yarn.setup
+#
+# before we deploy, we go build for all operating systems we would like to support
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: make package.setup
+    on:
+      tags: true
+
+# install dependences
+install:
+  - make python.setup
+  - make go.setup
+  - make yarn.setup
+
+# execute test
+script:
+  - make package.release
