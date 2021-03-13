@@ -1,0 +1,49 @@
+---
+#
+# This is the canonical configuration for the `README.md`
+# Run `make readme` to rebuild the `README.md`
+#
+
+# Name of this project
+name: home-automation
+
+email:
+  support: support@hadenlabs.com
+
+# Logo for this project
+#logo: docs/logo.png
+
+# License of this project
+license: 'MIT'
+
+# Canonical GitHub repo
+github_repo: luismayta/home-automation
+
+# Badges to display
+badges:
+  - name: Lint
+    image: https://github.com/luismayta/home-automation/actions/workflows/lint.yml/badge.svg?branch=develop
+    url: https://github.com/luismayta/home-automation/actions
+  - name: License
+    image: https://img.shields.io/github/license/luismayta/home-automation.svg
+    url: https://github.com/luismayta/home-automation
+  - name: Issues
+    image: https://img.shields.io/github/issues/luismayta/home-automation.svg
+    url: https://github.com/luismayta/home-automation/issues
+  - name: Latest Release
+    image: https://img.shields.io/github/release/luismayta/home-automation.svg
+    url: https://github.com/luismayta/home-automation/releases
+
+# Short description of this project
+description: |-
+  home-automation.
+
+# How to use this project
+usage: |-
+  ```bash
+
+
+  ```
+
+examples:
+  - 'docs/examples/common.md'
