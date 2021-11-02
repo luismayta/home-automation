@@ -1,0 +1,15 @@
+version: "3.7"
+services:
+  duckdns:
+    image: ghcr.io/linuxserver/duckdns
+    container_name: duckdns
+    environment:
+      - PUID=${PUID} #optional
+      - PGID=${PGID} #optional
+      - TZ=${TIMEZONE}
+      - SUBDOMAINS=${DUCKDNS_DOMAIN}
+      - TOKEN=${DUCKDNS_TOKEN}
+      - LOG_FILE=false #optional
+    volumes:
+      - ${APPDATA_PATH}/duckdns/config:/config
+    restart: unless-stopped
