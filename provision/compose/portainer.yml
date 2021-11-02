@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  portainer:
+    container_name: portainer
+    image: portainer/portainer-ce:latest
+    hostname: portainer
+    command: -H unix:///var/run/docker.sock
+    restart: always
+    ports:
+      - 9000:9000
+      - 8000:8000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${APPDATA_PATH}/portainer/data:/data
+    labels:
+      - "traefik.enable=true"
+        ## HTTP Routers
+      - "traefik.http.routers.portainer-rtr.entrypoints=https"
+      - "traefik.http.routers.portainer-rtr.rule=HostHeader(`portainer.$DOMAIN_NAME`)"
+      - "traefik.http.routers.portainer-rtr.tls=true"
+        ## HTTP Services
+      - "traefik.http.routers.portainer-rtr.service=portainer-svc"
+      - "traefik.http.services.portainer-svc.loadbalancer.server.port=9000"
+        ## Middlewares
+      - "traefik.http.routers.portainer-rtr.middlewares=chain-oauth@file"
