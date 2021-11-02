@@ -160,6 +160,7 @@ title = "gitleaks config"
         description = "ignore value fake"
         regexes = [
             '''host=HOST''',
+            '''api=true''',
         ]
 
 [[rules]]
