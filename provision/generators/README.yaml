@@ -10,40 +10,47 @@ name: home-automation
 email:
   support: support@hadenlabs.com
 
+confluence:
+  space: HomeAutomation
+  title: Project
+
 # Logo for this project
 #logo: docs/logo.png
 
 # License of this project
-license: 'MIT'
+license: 'LGPL-3.0'
 
 # Canonical GitHub repo
 github_repo: luismayta/home-automation
 
 # Badges to display
 badges:
-  - name: Lint
-    image: https://github.com/luismayta/home-automation/actions/workflows/lint.yml/badge.svg?branch=develop
-    url: https://github.com/luismayta/home-automation/actions
-  - name: License
-    image: https://img.shields.io/github/license/luismayta/home-automation.svg
-    url: https://github.com/luismayta/home-automation
-  - name: Issues
-    image: https://img.shields.io/github/issues/luismayta/home-automation.svg
-    url: https://github.com/luismayta/home-automation/issues
   - name: Latest Release
-    image: https://img.shields.io/github/release/luismayta/home-automation.svg
+    image: https://img.shields.io/github/release/luismayta/home-automation
     url: https://github.com/luismayta/home-automation/releases
+  - name: Lint
+    image: https://img.shields.io/github/workflow/status/luismayta/home-automation/lint-code
+    url: https://github.com/luismayta/home-automation/actions?workflow=lint-code
+  - name: pre-commit
+    image: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
+    url: https://github.com/pre-commit/pre-commit
+  - name: Conventional Commits
+    image: https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow
+    url: https://conventionalcommits.org
+  - name: KeepAChangelog
+    image: https://img.shields.io/badge/Keep%20A%20Changelog-1.0.0-%23E05735
+    url: https://keepachangelog.com
+
+requirements: |-
+
+  This is a list of plugins that need to be installed previously to enjoy all the goodies of this configuration:
+
+  - [Pyenv](https://github.com/pyenv/pyenv)
+  - [Docker](https://www.docker.com)
+  - [python](https://www.python.org)
+  - [taskfile](https://github.com/go-task/task)
 
 # Short description of this project
 description: |-
-  home-automation.
 
-# How to use this project
-usage: |-
-  ```bash
-
-
-  ```
-
-examples:
-  - 'docs/examples/common.md'
+  home-automation for project
