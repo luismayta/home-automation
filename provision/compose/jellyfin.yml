@@ -1,0 +1,25 @@
+# More info at https://jellyfin.org
+
+version: '3.8'
+
+services:
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    volumes:
+      - ${APPDATA_PATH}/jellyfin/config:/config
+      - ${APPDATA_PATH}/jellyfin/cache:/cache
+      - ${MEDIA_PATH}/Films:/movies
+      - ${MEDIA_PATH}/Series:/episodes
+      - ${MEDIA_PATH}/Anime:/animes
+      - ${MEDIA_PATH}/Cartoons:/cartoons
+      - ${MEDIA_PATH}/Documentary:/documentary
+      - ${MEDIA_PATH}/Music:/music
+    ports:
+      - 8096:8096
+      - 7359:7359/udp
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TIMEZONE}
+    restart: always
