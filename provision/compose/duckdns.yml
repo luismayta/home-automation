@@ -1,7 +1,7 @@
-version: "3.7"
+version: "3.8"
 services:
   duckdns:
-    image: ghcr.io/linuxserver/duckdns
+    image: linuxserver/duckdns
     container_name: duckdns
     environment:
       - PUID=${PUID} #optional
