@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  restic:
+    image: restic/restic-server:latest
+    container_name: restic
+    volumes:
+      - ${APPDATA_PATH}/restic/config:/config
+      - ${DATA_PATH}/:/data
+    ports:
+      - 80:80
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TIMEZONE}
+    restart: always
