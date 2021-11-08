@@ -21,6 +21,7 @@ pylint = "*"
 pymdown-extensions = "*"
 
 [packages]
+docker-compose = "*"
 
 [scripts]
 update = "pre-commit autoupdate"
