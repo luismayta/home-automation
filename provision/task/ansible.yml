@@ -1,0 +1,76 @@
+version: '3'
+
+tasks:
+  check:
+    desc: Exist ansible and dependences
+    run: once
+    deps:
+      - task: check:ansible
+
+  check:ansible:
+    desc: Exist Ansible
+    run: once
+    preconditions:
+      - sh: command -v ansible
+        msg: 'Please Install ansible'
+
+  update:
+    desc: install or update roles
+    run: once
+    deps:
+      - task: check
+    cmds:
+      - >
+        pipenv run ansible-galaxy
+        install
+        -r {{.ANSIBLE_DIR}}/{{.STAGE}}/requirements.yml
+        --roles-path {{.ANSIBLE_DIR}}/{{.STAGE}}/roles/contrib
+    vars:
+      STAGE: core
+
+  command:
+    desc: make command ansible
+    run: once
+    deps:
+      - task: check
+    cmds:
+      - >
+        pipenv run ansible-vault {{.ANSIBLE_COMMAND}} {{.ANSIBLE_DIR}}/{{.STAGE}}/vars/vars.yaml
+          --vault-password-file {{.VAULT-PASSWORD-FILE}}
+    vars:
+      STAGE: core
+
+  playbook:
+    desc: make playbook ansible
+    run: once
+    deps:
+      - task: check
+    cmds:
+      - >
+        pipenv run ansible-playbook -v {{.ANSIBLE_DIR}}/{{.STAGE}}/inventory/all.yml
+        --user={{.USER}}
+        --private-key={{.PRIVATE_KEY_FILE}}
+        --tags {{.TAGS}}
+        --extra-vars @{{.ANSIBLE_DIR}}/{{.STAGE}}/vars/vars.yaml
+    vars:
+      STAGE: core
+
+  encrypt:
+    desc: make ansible encrypt
+    run: once
+    deps:
+      - task: check
+    cmds:
+      - task: command
+        vars:
+          ANSIBLE_COMMAND: encrypt
+
+  decrypt:
+    desc: make ansible decrypt
+    run: once
+    deps:
+      - task: check
+    cmds:
+      - task: command
+        vars:
+          ANSIBLE_COMMAND: decrypt
