@@ -1,0 +1,9 @@
+---
+common_user: '{{ user }}'
+
+common_packages:
+  - 'vim'
+  - 'git'
+
+docker_users:
+  - 'pi'
