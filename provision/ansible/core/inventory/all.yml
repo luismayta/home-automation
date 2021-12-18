@@ -3,6 +3,7 @@ all:
     server01.raspberry.com:
       ansible_port: 22
       ansible_host: 192.168.68.130
+      ansible_python_interpreter: /usr/bin/python3
   children:
     webservers:
       hosts:
