@@ -55,6 +55,7 @@ vars:
     TMP_CHANGELOG.md
     .task
     *.lock.hcl
+    provision/ansible/core/roles/contrib
 
 tasks:
   default:
