@@ -61,3 +61,11 @@ task version:minor
 ```{.bash}
 task version:patch
 ```
+
+### Ansible
+
+#### Deploy
+
+```{.bash}
+task ansible:playbook TAGS=deploy PRIVATE_KEY_FILE=${KEYBASE_VOLUME_PATH}/private/luismayta/ssh/me
+```
