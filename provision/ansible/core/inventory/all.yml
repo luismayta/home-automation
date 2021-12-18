@@ -1,0 +1,9 @@
+all:
+  hosts:
+    server01.raspberry.com:
+      ansible_port: 22
+      ansible_host: 192.168.68.130
+  children:
+    webservers:
+      hosts:
+        server01.raspberry.com:
