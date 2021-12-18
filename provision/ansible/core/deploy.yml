@@ -3,8 +3,8 @@
   become: true
   gather_facts: true
   roles:
-    - contrib/hadenlabs.docker
     - contrib/hadenlabs.common
+    - contrib/hadenlabs.docker
   tags:
     - all
     - common
