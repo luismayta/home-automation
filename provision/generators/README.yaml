@@ -37,20 +37,25 @@ badges:
   - name: Conventional Commits
     image: https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow
     url: https://conventionalcommits.org
-  - name: KeepAChangelog
-    image: https://img.shields.io/badge/Keep%20A%20Changelog-1.0.0-%23E05735
-    url: https://keepachangelog.com
 
 requirements: |-
 
   This is a list of plugins that need to be installed previously to enjoy all the goodies of this configuration:
 
-  - [Pyenv](https://github.com/pyenv/pyenv)
-  - [Docker](https://www.docker.com)
+  - [gomplate](https://github.com/hairyhenderson/gomplate)
   - [python](https://www.python.org)
   - [taskfile](https://github.com/go-task/task)
+
+# Bulleted features to display
+features:
+  - 'service [komiser](docs/compose/komiser.md)'
+  - 'service [restic](docs/compose/restic.md)'
+  - 'service [portainer](docs/compose/portainer.md)'
 
 # Short description of this project
 description: |-
 
   home-automation for project
+
+examples:
+  - 'docs/examples/common.md'
