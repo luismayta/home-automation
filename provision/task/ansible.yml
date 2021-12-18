@@ -35,7 +35,7 @@ tasks:
       - task: check
     cmds:
       - >
-        pipenv run ansible-vault {{.ANSIBLE_COMMAND}} {{.ANSIBLE_DIR}}/{{.STAGE}}/vars/vars.yaml
+        pipenv run ansible-vault {{.ANSIBLE_COMMAND}} {{.ANSIBLE_DIR}}/{{.STAGE}}/vars/vars.yml
           --vault-password-file {{.VAULT-PASSWORD-FILE}}
     vars:
       STAGE: core
@@ -47,11 +47,12 @@ tasks:
       - task: check
     cmds:
       - >
-        pipenv run ansible-playbook -v {{.ANSIBLE_DIR}}/{{.STAGE}}/inventory/all.yml
+        pipenv run ansible-playbook -v {{.ANSIBLE_DIR}}/{{.STAGE}}/deploy.yml
+        -i {{.ANSIBLE_DIR}}/{{.STAGE}}/inventory/all.yml
         --user={{.USER}}
         --private-key={{.PRIVATE_KEY_FILE}}
         --tags {{.TAGS}}
-        --extra-vars @{{.ANSIBLE_DIR}}/{{.STAGE}}/vars/vars.yaml
+        --extra-vars @{{.ANSIBLE_DIR}}/{{.STAGE}}/vars/vars.yml
     vars:
       STAGE: core
 
