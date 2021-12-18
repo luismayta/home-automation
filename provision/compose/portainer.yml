@@ -14,13 +14,13 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ${APPDATA_PATH}/portainer/data:/data
     labels:
-      - "traefik.enable=true"
+      - 'traefik.enable=true'
         ## HTTP Routers
-      - "traefik.http.routers.portainer-rtr.entrypoints=https"
-      - "traefik.http.routers.portainer-rtr.rule=HostHeader(`portainer.$DOMAIN_NAME`)"
-      - "traefik.http.routers.portainer-rtr.tls=true"
+      - 'traefik.http.routers.portainer-rtr.entrypoints=https'
+      - 'traefik.http.routers.portainer-rtr.rule=HostHeader(`portainer.$DOMAIN_NAME`)'
+      - 'traefik.http.routers.portainer-rtr.tls=true'
         ## HTTP Services
-      - "traefik.http.routers.portainer-rtr.service=portainer-svc"
-      - "traefik.http.services.portainer-svc.loadbalancer.server.port=9000"
+      - 'traefik.http.routers.portainer-rtr.service=portainer-svc'
+      - 'traefik.http.services.portainer-svc.loadbalancer.server.port=9000'
         ## Middlewares
-      - "traefik.http.routers.portainer-rtr.middlewares=chain-oauth@file"
+      - 'traefik.http.routers.portainer-rtr.middlewares=chain-oauth@file'
