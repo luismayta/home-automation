@@ -1,6 +1,6 @@
 <!-- Space: HomeAutomation -->
 <!-- Parent: Project -->
-<!-- Title: Troubleshooting -->
+<!-- Title: Project Troubleshooting -->
 
 <!-- Label: HomeAutomation -->
 <!-- Label: Project -->

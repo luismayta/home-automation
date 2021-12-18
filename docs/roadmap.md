@@ -1,6 +1,6 @@
 <!-- Space: HomeAutomation -->
 <!-- Parent: Project -->
-<!-- Title: Roadmap -->
+<!-- Title: Project Roadmap -->
 
 <!-- Label: Roadmap -->
 <!-- Include: docs/disclaimer.md -->
@@ -40,5 +40,15 @@ You can see the corresponding projects on [home-automation](https://github.com/l
 - :feedback: : actively looking for feedback
 
 ## Epics
+
+### Agosto 2021
+
+### September 2021
+
+### October 2021
+
+### November 2021
+
+### December 2021
 
 ## Long Lived Initiatives

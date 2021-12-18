@@ -1,6 +1,6 @@
 <!-- Space: HomeAutomation -->
 <!-- Parent: Project -->
-<!-- Title: Contributing -->
+<!-- Title: Project Contributing -->
 
 <!-- Label: HomeAutomation -->
 <!-- Label: Project -->
