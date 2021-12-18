@@ -1,0 +1,22 @@
+- name: Common stuff for all the server
+  hosts: all
+  become: true
+  gather_facts: true
+  roles:
+    - contrib/hadenlabs.docker
+    - contrib/hadenlabs.common
+  tags:
+    - all
+    - common
+    - provision
+    - sync
+
+- name: Deploy Application
+  hosts: server
+  become: true
+  roles:
+    - contrib/hadenlabs.common
+  tags:
+    - webserver
+    - wait
+    - deploy
