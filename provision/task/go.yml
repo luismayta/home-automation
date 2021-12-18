@@ -54,7 +54,7 @@ tasks:
       - task: check:go
 
   fmt:
-    desc: Setup go dependences.
+    desc: format files go.
     run: once
     cmds:
       - gofmt -s -l -w {{.GO_FILES}}
