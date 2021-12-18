@@ -15,20 +15,37 @@
 
   -->
 
-[![Latest Release](https://img.shields.io/github/release/luismayta/home-automation)](https://github.com/luismayta/home-automation/releases) [![Lint](https://img.shields.io/github/workflow/status/luismayta/home-automation/lint-code)](https://github.com/luismayta/home-automation/actions?workflow=lint-code) [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit) [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow)](https://conventionalcommits.org) [![KeepAChangelog](https://img.shields.io/badge/Keep%20A%20Changelog-1.0.0-%23E05735)](https://keepachangelog.com)
+[![Latest Release](https://img.shields.io/github/release/luismayta/home-automation)](https://github.com/luismayta/home-automation/releases) [![Lint](https://img.shields.io/github/workflow/status/luismayta/home-automation/lint-code)](https://github.com/luismayta/home-automation/actions?workflow=lint-code) [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit) [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow)](https://conventionalcommits.org)
 
 # home-automation
 
 home-automation for project
 
+## Features
+
+- service [komiser](docs/compose/komiser.md)
+- service [restic](docs/compose/restic.md)
+- service [portainer](docs/compose/portainer.md)
+
 ## Requirements
 
 This is a list of plugins that need to be installed previously to enjoy all the goodies of this configuration:
 
-- [Pyenv](https://github.com/pyenv/pyenv)
-- [Docker](https://www.docker.com)
+- [gomplate](https://github.com/hairyhenderson/gomplate)
 - [python](https://www.python.org)
 - [taskfile](https://github.com/go-task/task)
+
+## Examples
+
+<!-- Space: HomeAutomation -->
+<!-- Parent: Project -->
+<!-- Title: HomeAutomation Examples -->
+
+<!-- Label: Examples -->
+<!-- Include: docs/disclaimer.md -->
+<!-- Include: ac:toc -->
+
+### common
 
 ## Help
 
@@ -38,22 +55,7 @@ File a GitHub [issue](https://github.com/luismayta/home-automation/issues).
 
 ## Contributing
 
-### Bug Reports & Feature Requests
-
-Please use the [issue tracker](https://github.com/luismayta/home-automation/issues) to report any bugs or file feature requests.
-
-### Development
-
-In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
-
-1.  **Fork** the repo on GitHub
-2.  **Clone** the project to your own machine
-3.  **Commit** changes to your own branch
-4.  **Push** your work back up to your fork
-
-5.  Submit a **Pull Request** so that we can review your changes
-
-**NOTE:** Be sure to rebase the latest changes from "upstream" before making a pull request!
+See [Contributing](./docs/contributing.md).
 
 ## Module Versioning
 
