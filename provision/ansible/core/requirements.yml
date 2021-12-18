@@ -1,0 +1,13 @@
+# Install a role from the Ansible Galaxy
+# - src: hadenlabs.authorization
+#   version: 0.1.0
+
+# Install a role from GitHub
+
+- name: hadenlabs.docker
+  src: https://github.com/hadenlabs/ansible-role-docker
+  version: origin/develop
+
+- name: hadenlabs.common
+  src: https://github.com/hadenlabs/ansible-role-common
+  version: origin/develop
