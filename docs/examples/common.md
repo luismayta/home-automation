@@ -1,6 +1,6 @@
 <!-- Space: HomeAutomation -->
 <!-- Parent: Project -->
-<!-- Title: Project Examples -->
+<!-- Title: HomeAutomation Examples -->
 
 <!-- Label: Examples -->
 <!-- Include: docs/disclaimer.md -->

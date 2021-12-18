@@ -1,6 +1,6 @@
 <!-- Space: HomeAutomation -->
 <!-- Parent: Project -->
-<!-- Title: Components -->
+<!-- Title: Project Components -->
 
 <!-- Label: HomeAutomation -->
 <!-- Label: Project -->
