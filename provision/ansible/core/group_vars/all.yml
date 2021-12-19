@@ -24,13 +24,15 @@ common_environment_dict:
   permissions: '0755'
   envs:
     APP_NAME: home-automation
-    APPDATA_PATH: /media/evilmediadisk/appdata
-    DATA_PATH: /media/evilmediadisk/data
-    DOWNLOAD_PATH: /media/evilmediadisk/downloads
-    MEDIA_PATH: /media/evilmediadisk/media
+    APPDATA_PATH: /media/eviljasperdisk/appdata
+    DATA_PATH: /media/eviljasperdisk/data
+    DOWNLOAD_PATH: /media/eviljasperdisk/downloads
+    MEDIA_PATH: /media/eviljasperdisk/media
     TIMEZONE: America/Lima
     PUID: 1000
     PGID: 1000
+    PIHOLE_PASSWORD: '{{ pihole_password }}'
+    PIHOLE_IP: '{{ pihole_ip }}'
 
 common_deployments:
   - name: 'home-automation'

@@ -1,2 +1,4 @@
 ---
 user: pi
+pihole_password: P@ssw0rd
+pihole_ip: 192.168.68.130
