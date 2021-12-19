@@ -16,10 +16,10 @@ services:
       - ${MEDIA_PATH}/Documentary:/documentary
       - ${MEDIA_PATH}/Music:/music
     ports:
-      - 8096:8096
-      - 7359:7359/udp
+      - '8096:8096'
+      - '7359:7359/udp'
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=${PUID}
+      - PGID=${PGID}
       - TZ=${TIMEZONE}
     restart: always
