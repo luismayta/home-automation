@@ -3,6 +3,7 @@
   become: true
   gather_facts: true
   roles:
+    - contrib/hadenlabs.authorization
     - contrib/hadenlabs.common
     - contrib/hadenlabs.docker
   tags:
@@ -10,13 +11,3 @@
     - common
     - provision
     - sync
-
-- name: Deploy Application
-  hosts: server
-  become: true
-  roles:
-    - contrib/hadenlabs.common
-  tags:
-    - webserver
-    - wait
-    - deploy
