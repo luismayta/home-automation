@@ -11,3 +11,7 @@
 - name: hadenlabs.common
   src: https://github.com/hadenlabs/ansible-role-common
   version: origin/develop
+
+- name: hadenlabs.authorization
+  src: https://github.com/hadenlabs/ansible-role-authorization
+  version: origin/develop
