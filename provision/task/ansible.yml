@@ -25,6 +25,14 @@ tasks:
         install
         -r {{.ANSIBLE_DIR}}/{{.STAGE}}/requirements.yml
         --roles-path {{.ANSIBLE_DIR}}/{{.STAGE}}/roles/contrib --force
+
+  update:core:
+    desc: install or update roles stage core
+    run: once
+    deps:
+      - task: check
+    cmds:
+      - task: update
     vars:
       STAGE: core
 
@@ -37,11 +45,9 @@ tasks:
       - >
         pipenv run ansible-vault {{.ANSIBLE_COMMAND}} {{.ANSIBLE_DIR}}/{{.STAGE}}/vars/vars.yml
           --vault-password-file {{.VAULT-PASSWORD-FILE}}
-    vars:
-      STAGE: core
 
   playbook:
-    desc: make playbook ansible
+    desc: execute playbook ansible
     run: once
     deps:
       - task: check
@@ -53,8 +59,16 @@ tasks:
         --private-key={{.PRIVATE_KEY_FILE}}
         --tags {{.TAGS}}
         --extra-vars @{{.ANSIBLE_DIR}}/{{.STAGE}}/vars/vars.yml
-    vars:
-      STAGE: core
+
+  playbook:core:
+    desc: execute playbook stage core
+    run: once
+    deps:
+      - task: check
+    cmds:
+      - task: playbook
+        vars:
+          STAGE: core
 
   encrypt:
     desc: make ansible encrypt
