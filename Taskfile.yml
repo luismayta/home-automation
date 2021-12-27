@@ -2,6 +2,7 @@ version: '3'
 
 includes:
   ansible: ./provision/task/ansible.yml
+  confluence: ./provision/task/confluence.yml
   changelog: ./provision/task/changelog.yml
   python: ./provision/task/python.yml
   git: ./provision/task/git.yml
