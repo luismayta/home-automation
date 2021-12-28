@@ -17,6 +17,26 @@ common_create_files:
     owner: '{{ user }}'
     mode: '0775'
 
+common_create_directories:
+  - path: '/media/eviljasperdisk/appdata'
+    owner: '{{ user }}'
+    mode: '0775'
+  - path: '/media/eviljasperdisk/data'
+    owner: '{{ user }}'
+    mode: '0775'
+  - path: '/media/eviljasperdisk/downloads'
+    owner: '{{ user }}'
+    mode: '0775'
+  - path: '/media/eviljasperdisk/media'
+    owner: '{{ user }}'
+    mode: '0775'
+  - path: '/media/eviljasperdisk/restick'
+    owner: '{{ user }}'
+    mode: '0775'
+  - path: '/media/eviljasperdisk/restick/data'
+    owner: '{{ user }}'
+    mode: '0775'
+
 common_environment_dict:
   path: '/home/{{ user }}/home-automation/.env'
   owner: '{{ user }}'
@@ -26,6 +46,7 @@ common_environment_dict:
     APP_NAME: home-automation
     APPDATA_PATH: /media/eviljasperdisk/appdata
     DATA_PATH: /media/eviljasperdisk/data
+    RESTIC_DATA_PATH: /media/eviljasperdisk/restick/data
     DOWNLOAD_PATH: /media/eviljasperdisk/downloads
     MEDIA_PATH: /media/eviljasperdisk/media
     TIMEZONE: America/Lima
