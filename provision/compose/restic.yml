@@ -3,14 +3,15 @@ version: '3.8'
 services:
   restic:
     image: restic/restic-server:latest
-    container_name: restic
+    container_name: restic-server
     volumes:
       - ${APPDATA_PATH}/restic/config:/config
-      - ${DATA_PATH}/:/data
+      - ${RESTIC_DATA_PATH}/:/data
     ports:
-      - 80:80
+      - '8010:8000'
     environment:
+      - OPTIONS= "--append-only --private-repos"
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TIMEZONE}
-    restart: always
+    restart: unless-stopped
