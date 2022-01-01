@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   restic:
-    image: restic/restic-server:latest
+    image: restic/rest-server:latest
     container_name: restic-server
     volumes:
       - ${APPDATA_PATH}/restic/config:/config
