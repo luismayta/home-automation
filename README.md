@@ -26,6 +26,7 @@ home-automation for project
 - service [komiser](docs/compose/komiser.md)
 - service [restic](docs/compose/restic.md)
 - service [portainer](docs/compose/portainer.md)
+- service [jellyfin](docs/compose/jellyfin.md)
 
 ## Requirements
 
@@ -74,7 +75,7 @@ Using the given version number of `MAJOR.MINOR.PATCH`, we apply the following co
 
 ## Copyright
 
-Copyright © 2018-2021 [Hadenlabs](https://hadenlabs.com)
+Copyright © 2018-2022 [Hadenlabs](https://hadenlabs.com)
 
 ## Trademarks
 
