@@ -1,4 +1,7 @@
 ---
+# restic
+restic_port: 8010
+
 common_user: '{{ user }}'
 
 authorization_user: '{{ user }}'
@@ -54,6 +57,8 @@ common_environment_dict:
     PGID: 1000
     PIHOLE_PASSWORD: '{{ pihole_password }}'
     PIHOLE_IP: '{{ pihole_ip }}'
+    # restic
+    RESTIC_PORT: '{{ restic_port }}'
 
 common_deployments:
   - name: 'home-automation'
