@@ -19,7 +19,5 @@ services:
       - '8096:8096'
       - '7359:7359/udp'
     environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TIMEZONE}
+      <<: *common_environment
     restart: always

@@ -13,9 +13,9 @@ services:
       - '67:67/udp'
       - '80:80/tcp'
     environment:
-      TZ: '${TIMEZONE}'
+      <<: *common_environment
       WEBPASSWORD: '${PIHOLE_PASSWORD}'
-      ServerIP: ${PIHOLE_IP}
+      ServerIP: "${PIHOLE_IP}"
       VIRTUAL_HOST: pi.hole
     # Volumes store your data between container upgrades
     volumes:

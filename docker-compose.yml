@@ -1,4 +1,9 @@
 version: '3.8'
 
+x-common-variables: &common_environment
+  PUID: ${PUID}
+  PGID: ${PGID}
+  TZ: '${TIMEZONE}'
+
 networks:
   proxy: {}
