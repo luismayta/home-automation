@@ -9,7 +9,5 @@ services:
     ports:
       - '${RESTIC_PORT:-8000}:8000'
     environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ="${TIMEZONE}"
+      <<: *common_environment
     restart: unless-stopped
