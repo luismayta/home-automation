@@ -5,10 +5,8 @@ services:
     image: lscr.io/linuxserver/qbittorrent
     container_name: qbittorrent
     environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TIMEZONE}
-      - WEBUI_PORT=8081
+      <<: *common_environment
+      WEBUI_PORT: 8081
     volumes:
       - ${APPDATA_PATH}/qbittorrent/config:/config
       - ${DOWNLOAD_PATH}:/downloads
