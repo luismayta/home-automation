@@ -39,6 +39,12 @@ common_create_directories:
   - path: '/media/eviljasperdisk/restick/data'
     owner: '{{ user }}'
     mode: '0775'
+  - path: '/media/eviljasperdisk/dnsmasq'
+    owner: '{{ user }}'
+    mode: '0775'
+  - path: '/media/eviljasperdisk/dnsmasq/var/log'
+    owner: '{{ user }}'
+    mode: '0775'
 
 common_environment_dict:
   path: '/home/{{ user }}/home-automation/.env'
