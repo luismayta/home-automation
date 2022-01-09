@@ -8,6 +8,10 @@ authorization_user: '{{ user }}'
 authorization_key_public: '~/.ssh/id_rsa.pub'
 authorization_key_private: '~/.ssh/id_rsa'
 
+openssl_user: '{{ user }}'
+openssl_group: '{{ user }}'
+openssl_domain: 'hadenlabs.local'
+
 common_packages:
   - 'vim'
   - 'git'

@@ -11,3 +11,12 @@
     - common
     - provision
     - sync
+
+- name: install openssl
+  hosts: all
+  become: true
+  gather_facts: true
+  roles:
+    - contrib/hadenlabs.openssl
+  tags:
+    - openssl
