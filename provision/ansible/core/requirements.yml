@@ -15,3 +15,7 @@
 - name: hadenlabs.authorization
   src: https://github.com/hadenlabs/ansible-role-authorization
   version: origin/develop
+
+- name: hadenlabs.openssl
+  src: https://github.com/hadenlabs/ansible-role-openssl
+  version: origin/develop
