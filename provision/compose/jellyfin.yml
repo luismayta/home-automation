@@ -19,5 +19,5 @@ services:
       - '8096:8096'
       - '7359:7359/udp'
     environment:
-      <<: *common_environment
+      <<: *common-variables
     restart: always

@@ -9,5 +9,5 @@ services:
     ports:
       - '${RESTIC_PORT:-8000}:8000'
     environment:
-      <<: *common_environment
+      <<: *common-variables
     restart: unless-stopped
