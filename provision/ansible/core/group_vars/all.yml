@@ -12,7 +12,7 @@ openssl_user: '{{ user }}'
 openssl_group: '{{ user }}'
 openssl_domain: 'hadenlabs.local'
 openssl_fqdn: '*.hadenlabs.local'
-
+openssl_path_ssl: '/etc/keys/ssl'
 openssl_certfile: '{{ openssl_path_ssl }}/{{ openssl_domain }}.crt'
 openssl_keyfile: '{{ openssl_path_ssl }}/{{ openssl_domain }}.key'
 
