@@ -19,4 +19,17 @@
   roles:
     - contrib/hadenlabs.openssl
   tags:
+    - provision
     - openssl
+
+- name: Deploy configuration for all the server
+  hosts: all
+  become: true
+  gather_facts: true
+  roles:
+    - role: contrib/hadenlabs.common
+      vars:
+        common_only_deploy: yes
+  tags:
+    - deploy
+    - sync

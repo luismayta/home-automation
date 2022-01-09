@@ -11,6 +11,10 @@ authorization_key_private: '~/.ssh/id_rsa'
 openssl_user: '{{ user }}'
 openssl_group: '{{ user }}'
 openssl_domain: 'hadenlabs.local'
+openssl_fqdn: '*.hadenlabs.local'
+
+openssl_certfile: '{{ openssl_path_ssl }}/{{ openssl_domain }}.crt'
+openssl_keyfile: '{{ openssl_path_ssl }}/{{ openssl_domain }}.key'
 
 common_packages:
   - 'vim'
@@ -56,6 +60,7 @@ common_environment_dict:
   group: '{{ user }}'
   permissions: '0755'
   envs:
+    DOMAIN: '{{ openssl_domain }}'
     APP_NAME: home-automation
     APPDATA_PATH: /media/eviljasperdisk/appdata
     DATA_PATH: /media/eviljasperdisk/data
@@ -69,6 +74,9 @@ common_environment_dict:
     PIHOLE_IP: '{{ pihole_ip }}'
     # restic
     RESTIC_PORT: '{{ restic_port }}'
+    # traefik
+    TRAEFIK_CERTFILE: '{{ openssl_certfile }}'
+    TRAEFIK_KEYFILE: '{{ openssl_keyfile }}'
 
 common_deployments:
   - name: 'home-automation'
