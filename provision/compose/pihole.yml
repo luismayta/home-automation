@@ -13,7 +13,7 @@ services:
       - '67:67/udp'
       - '80:80/tcp'
     environment:
-      <<: *common_environment
+      <<: *common-variables
       WEBPASSWORD: '${PIHOLE_PASSWORD}'
       ServerIP: "${PIHOLE_IP}"
       VIRTUAL_HOST: pi.hole
