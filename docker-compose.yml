@@ -6,39 +6,63 @@ x-common-variables: &common-variables
   TZ: '${TIMEZONE}'
 
 services:
-  qbittorrent:
-    image: lscr.io/linuxserver/qbittorrent
-    container_name: qbittorrent
+  traefik:
+    container_name: traefik
+    image: traefik
+    restart: always
+    networks:
+      - local
+    ports:
+      - '53:53/tcp'
+      - '53:53/udp'
+      - '80:80/tcp'
+      - '443:443/tcp'
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+      - 'traefik:/etc/traefik/'
+      - '/etc/keys/ssl:/etc/traefik/certs'
+      - './provision/traefik/config/dynamic_config.yml:/etc/traefik/config/dynamic_config.yml'
     environment:
       <<: *common-variables
-      WEBUI_PORT: 8081
-    volumes:
-      - ${APPDATA_PATH}/qbittorrent/config:/config
-      - ${DOWNLOAD_PATH}:/downloads
-    ports:
-      - '6881:6881'
-      - '6881:6881/udp'
-      - '8081:8081'
-    restart: unless-stopped
+    command:
+      - '--global.checknewversion=true'
+      - '--global.sendanonymoususage=false'
+      - '--api.dashboard=true'
+      - '--providers.docker=true'
+      - '--providers.docker.exposedbydefault=false'
+      - '--providers.file.directory=/etc/traefik/config'
+      - '--providers.file.watch=true'
+      - '--entrypoints.dnstcp.address=:53/tcp'
+      - '--entrypoints.dnsudp.address=:53/udp'
+      - '--entrypoints.http.address=:80/tcp'
+      - '--entrypoints.http.http.redirections.entryPoint.to=https'
+      - '--entrypoints.http.http.redirections.entryPoint.scheme=https'
+      - '--entrypoints.https.address=:443/tcp'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.traefik.entrypoints=https'
+      - 'traefik.http.routers.traefik.tls=true'
+
+      - 'traefik.http.routers.traefik.rule=Host(`traefik.${DOMAIN}`)'
+      - 'traefik.http.routers.traefik.service=api@internal'
 
   pihole:
     image: pihole/pihole:latest
     container_name: pihole
-    hostname: pihole
-    ports:
-      - '53:53/tcp'
-      - '53:53/udp'
-      - '67:67/udp'
-      - '80:80/tcp'
+    depends_on:
+      - traefik
+    networks:
+      - local
     environment:
       <<: *common-variables
       WEBPASSWORD: '${PIHOLE_PASSWORD}'
       ServerIP: '${PIHOLE_IP}'
-      VIRTUAL_HOST: 'pi.${DOMAIN}'
+      VIRTUAL_HOST: pihole.${DOMAIN}
     # Volumes store your data between container upgrades
     volumes:
       - '${APPDATA_PATH}/pihole/etc/pihole/:/etc/pihole/'
       - '${APPDATA_PATH}/pihole/etc/dnsmasq.d/:/etc/dnsmasq.d/'
+      - './provision/pihole/etc-pihole/custom.list:/etc/pihole/custom.list'
     cap_add:
       - NET_ADMIN
     restart: unless-stopped
@@ -66,6 +90,21 @@ services:
 
       - 'traefik.udp.routers.dnsudp.entrypoints=dnsudp'
       - 'traefik.udp.services.pihole.loadbalancer.server.port=53'
+
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent
+    container_name: qbittorrent
+    environment:
+      <<: *common-variables
+      WEBUI_PORT: 8081
+    volumes:
+      - ${APPDATA_PATH}/qbittorrent/config:/config
+      - ${DOWNLOAD_PATH}:/downloads
+    ports:
+      - '6881:6881'
+      - '6881:6881/udp'
+      - '8081:8081'
+    restart: unless-stopped
 
   restic:
     image: ajoergensen/rest-server:latest
@@ -98,4 +137,9 @@ services:
     restart: always
 
 networks:
-  proxy: {}
+  local:
+    name: local
+
+volumes:
+  traefik:
+    name: traefik
