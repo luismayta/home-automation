@@ -6,3 +6,5 @@
 192.168.3.130 pihole
 192.168.3.130 jellyfin.hadenlabs.local
 192.168.3.130 jellyfin
+192.168.3.130 grafana.hadenlabs.local
+192.168.3.130 grafana

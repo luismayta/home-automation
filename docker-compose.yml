@@ -10,8 +10,6 @@ services:
     container_name: traefik
     image: traefik
     restart: always
-    networks:
-      - local
     ports:
       - '53:53/tcp'
       - '53:53/udp'
@@ -55,8 +53,6 @@ services:
     container_name: pihole
     depends_on:
       - traefik
-    networks:
-      - local
     environment:
       <<: *common-variables
       WEBPASSWORD: '${PIHOLE_PASSWORD}'
@@ -152,10 +148,35 @@ services:
       - 'traefik.http.routers.jellyfin.rule=Host(`jellyfin.${DOMAIN}`)'
       - 'traefik.http.services.jellyfin.loadbalancer.server.port=8096'
 
-networks:
-  local:
-    name: local
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    hostname: grafana_server
+    depends_on:
+      - traefik
+    environment:
+      <<: *common-variables
+      GF_SECURITY_ADMIN_USER: "${GRAFANA_SECURITY_ADMIN_USER}"
+      GF_SECURITY_ADMIN_PASSWORD: "${GRAFANA_SECURITY_ADMIN_PASSWORD}"
+      GF_USERS_ALLOW_SIGN_UP: "${GRAFANA_USERS_ALLOW_SIGN_UP}"
+    volumes:
+      - "grafana:/var/lib/grafana/"
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    labels:
+      - 'traefik.enable=true'
+
+      - 'traefik.http.routers.grafana.entrypoints=https'
+      - 'traefik.http.routers.grafana.tls=true'
+      - 'traefik.http.routers.grafana.rule=Host(`grafana.${DOMAIN}`)'
+
+      - 'traefik.http.routers.grafana.service=grafana'
+
+      - 'traefik.http.services.grafana.loadbalancer.server.port=3000'
 
 volumes:
   traefik:
     name: traefik
+  grafana:
+    name: grafana
