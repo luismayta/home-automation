@@ -1,3 +1,13 @@
+- name: load vars encrypteds
+  hosts: all
+  tasks:
+    - name: Load encrypted vars file
+      community.sops.load_vars:
+        file: vars/all.sops.yml
+  tags:
+    - common
+    - configuration
+
 - name: Common stuff for all the server
   hosts: all
   become: true
