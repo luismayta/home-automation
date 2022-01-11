@@ -145,6 +145,9 @@ services:
 
       - 'traefik.http.routers.jellyfin.entrypoints=https'
       - 'traefik.http.routers.jellyfin.tls=true'
+
+      - 'traefik.http.routers.jellyfin.service=jellyfin'
+
       - 'traefik.http.routers.jellyfin.rule=Host(`jellyfin.${DOMAIN}`)'
       - 'traefik.http.services.jellyfin.loadbalancer.server.port=8096'
     logging:
@@ -160,7 +163,6 @@ services:
     hostname: grafana_server
     depends_on:
       - traefik
-      - loki
     environment:
       <<: *common-variables
       GF_SECURITY_ADMIN_USER: '${GRAFANA_SECURITY_ADMIN_USER}'
