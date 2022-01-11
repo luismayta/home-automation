@@ -147,6 +147,12 @@ services:
       - 'traefik.http.routers.jellyfin.tls=true'
       - 'traefik.http.routers.jellyfin.rule=Host(`jellyfin.${DOMAIN}`)'
       - 'traefik.http.services.jellyfin.loadbalancer.server.port=8096'
+    logging:
+      driver: fluentd
+      options:
+        fluentd-async-connect: "true"
+        fluentd-address: fluent-bit:24224
+        tag: jellyfin.logs
 
   grafana:
     image: grafana/grafana:latest
@@ -180,11 +186,28 @@ services:
   loki:
     image: grafana/loki
     container_name: loki
+    depends_on:
+      - grafana
     volumes:
       - ./provision/loki/:/etc/loki/
     command: -config.file=/etc/loki/loki.yml
     ports:
       - '3100:3100'
+
+  fluent-bit:
+    image: grafana/fluent-bit-plugin-loki
+    container_name: fluent-bit
+    depends_on:
+      - grafana
+    ports:
+      - '24224:24224'
+      - '24224:24224/udp'
+      - '2020:2020'
+    environment:
+      LOKI_URL: http://loki:3100/loki/api/v1/push
+    volumes:
+      - ./provision/fluent-bit/fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf
+      - ./provision/fluent-bit/parsers.conf:/fluent-bit/etc/parsers.conf
 
 volumes:
   traefik:
