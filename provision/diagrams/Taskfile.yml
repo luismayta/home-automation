@@ -4,7 +4,11 @@ version: '3'
 
 vars:
   FILES_PLANTUML:
-    sh: find ./ -type f -name '*.plantuml' | sort -u | xargs
+    sh: >-
+      find ./ -type f -name '*.puml'
+      | grep -v '.terraform'
+      | sort -u
+      | xargs
 
 tasks:
   build:
@@ -27,8 +31,7 @@ tasks:
       - >-
         rsync -avhP --remove-source-files
         --include='*.png' --include='*/'
-        --exclude='*'
-        provision/diagrams/ ./
+        --exclude='*' provision/diagrams/ docs/images/diagrams/
 
   make:
     desc: generate files plantuml.
