@@ -57,8 +57,7 @@ tasks:
         -i {{.ANSIBLE_DIR}}/{{.STAGE}}/inventory/all.yml
         --user={{.USER}}
         --private-key={{.PRIVATE_KEY_FILE}}
-        --tags {{.TAGS}}
-        --extra-vars @{{.ANSIBLE_DIR}}/{{.STAGE}}/vars/vars.yml
+        --tags configuration,{{.TAGS}}
 
   playbook:core:
     desc: execute playbook stage core
@@ -69,23 +68,3 @@ tasks:
       - task: playbook
         vars:
           STAGE: core
-
-  encrypt:
-    desc: make ansible encrypt
-    run: once
-    deps:
-      - task: check
-    cmds:
-      - task: command
-        vars:
-          ANSIBLE_COMMAND: encrypt
-
-  decrypt:
-    desc: make ansible decrypt
-    run: once
-    deps:
-      - task: check
-    cmds:
-      - task: command
-        vars:
-          ANSIBLE_COMMAND: decrypt

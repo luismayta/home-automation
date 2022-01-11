@@ -15,6 +15,8 @@ includes:
   prettier: ./provision/task/prettier.yml
   sonar: ./provision/task/sonar.yml
   diagrams: ./provision/diagrams/Taskfile.yml
+  sops: ./provision/task/sops.yml
+  keybase: ./provision/task/keybase.yml
 
 env:
   DOCKER:
@@ -30,11 +32,13 @@ env:
   README_YAML: provision/generators/README.yaml
   README_TEMPLATE: provision/templates/README.tpl.md
   README_INCLUDES: file://
-  KEYBASE_OWNER: luismayta
+  GPG_KEY: BFFC32A4CAAB75BB99C79E381279F240AC0C598B
+  GPG_FILE_CONF: provision/gpg/key.conf
   KEYBASE_TEAM_PATH:
     sh: echo {{.KEYBASE_VOLUME_PATH}}/private/luismayta
   KEYBASE_PROJECT_PATH:
     sh: echo {{.KEYBASE_TEAM_PATH}}/github.com/luismayta/home-automation
+  ANSIBLE_VARS_ENABLED: host_group_vars,community.sops.sops
 
 dotenv:
   - .env
@@ -55,6 +59,7 @@ vars:
     .secrets
     TMP_CHANGELOG.md
     .task
+    *.out
     *.lock.hcl
     provision/ansible/*/roles/contrib
 
@@ -119,3 +124,4 @@ tasks:
     desc: Setup environment of project
     cmds:
       - task: python:environment
+      - task: keybase:environment
