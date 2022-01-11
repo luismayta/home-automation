@@ -28,15 +28,19 @@ services:
       - '--global.checknewversion=true'
       - '--global.sendanonymoususage=false'
       - '--api.dashboard=true'
+
       - '--providers.docker=true'
       - '--providers.docker.exposedbydefault=false'
       - '--providers.file.directory=/etc/traefik/config'
       - '--providers.file.watch=true'
       - '--entrypoints.dnstcp.address=:53/tcp'
       - '--entrypoints.dnsudp.address=:53/udp'
+
       - '--entrypoints.http.address=:80/tcp'
+
       - '--entrypoints.http.http.redirections.entryPoint.to=https'
       - '--entrypoints.http.http.redirections.entryPoint.scheme=https'
+
       - '--entrypoints.https.address=:443/tcp'
     labels:
       - 'traefik.enable=true'
@@ -129,12 +133,24 @@ services:
       - ${MEDIA_PATH}/Cartoons:/cartoons
       - ${MEDIA_PATH}/Documentary:/documentary
       - ${MEDIA_PATH}/Music:/music
+    network_mode: 'host'
+    depends_on:
+      - traefik
+      - pihole
     ports:
+      # for some reason jellyfin app doesn't work with traefik proxy, open port directly for local mobile clients
       - '8096:8096'
       - '7359:7359/udp'
     environment:
       <<: *common-variables
     restart: always
+    labels:
+      - 'traefik.enable=true'
+
+      - 'traefik.http.routers.jellyfin.entrypoints=https'
+      - 'traefik.http.routers.jellyfin.tls=true'
+      - 'traefik.http.routers.jellyfin.rule=Host(`jellyfin.${DOMAIN}`)'
+      - 'traefik.http.services.jellyfin.loadbalancer.server.port=8096'
 
 networks:
   local:
