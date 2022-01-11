@@ -1,0 +1,8 @@
+192.168.3.130 dockerhost.hadenlabs.local
+192.168.3.130 dockerhost
+192.168.3.130 traefik.hadenlabs.local
+192.168.3.130 traefik
+192.168.3.130 pihole.hadenlabs.local
+192.168.3.130 pihole
+192.168.3.130 jellyfin.hadenlabs.local
+192.168.3.130 jellyfin
