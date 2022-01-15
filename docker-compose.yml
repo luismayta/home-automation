@@ -103,21 +103,6 @@ services:
         fluentd-address: fluent-bit:24224
         tag: pihole.logs
 
-  qbittorrent:
-    image: lscr.io/linuxserver/qbittorrent
-    container_name: qbittorrent
-    environment:
-      <<: *common-variables
-      WEBUI_PORT: 8081
-    volumes:
-      - ${APPDATA_PATH}/qbittorrent/config:/config
-      - ${DOWNLOAD_PATH}:/downloads
-    ports:
-      - '6881:6881'
-      - '6881:6881/udp'
-      - '8081:8081'
-    restart: unless-stopped
-
   jellyfin:
     image: jellyfin/jellyfin
     container_name: jellyfin
