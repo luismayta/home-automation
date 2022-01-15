@@ -118,17 +118,6 @@ services:
       - '8081:8081'
     restart: unless-stopped
 
-  restic:
-    image: ajoergensen/rest-server:latest
-    container_name: restic-server
-    volumes:
-      - ${RESTIC_DATA_PATH}/:/data
-    ports:
-      - '${RESTIC_PORT:-8000}:8000'
-    environment:
-      <<: *common-variables
-    restart: unless-stopped
-
   jellyfin:
     image: jellyfin/jellyfin
     container_name: jellyfin
