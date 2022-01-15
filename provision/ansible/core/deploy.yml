@@ -22,6 +22,15 @@
     - provision
     - sync
 
+- name: Install or upgrade docker
+  hosts: all
+  become: true
+  gather_facts: true
+  roles:
+    - contrib/hadenlabs.docker
+  tags:
+    - docker
+
 - name: install openssl
   hosts: all
   become: true
