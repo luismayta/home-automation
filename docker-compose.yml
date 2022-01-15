@@ -47,6 +47,12 @@ services:
 
       - 'traefik.http.routers.traefik.rule=Host(`traefik.${DOMAIN}`)'
       - 'traefik.http.routers.traefik.service=api@internal'
+    logging:
+      driver: fluentd
+      options:
+        fluentd-async-connect: 'true'
+        fluentd-address: fluent-bit:24224
+        tag: traefik.logs
 
   pihole:
     image: pihole/pihole:latest
@@ -90,6 +96,12 @@ services:
 
       - 'traefik.udp.routers.dnsudp.entrypoints=dnsudp'
       - 'traefik.udp.services.pihole.loadbalancer.server.port=53'
+    logging:
+      driver: fluentd
+      options:
+        fluentd-async-connect: 'true'
+        fluentd-address: fluent-bit:24224
+        tag: pihole.logs
 
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent
@@ -153,7 +165,7 @@ services:
     logging:
       driver: fluentd
       options:
-        fluentd-async-connect: "true"
+        fluentd-async-connect: 'true'
         fluentd-address: fluent-bit:24224
         tag: jellyfin.logs
 
