@@ -266,6 +266,7 @@ services:
   minio1:
     <<: *minio-common
     hostname: minio1
+    container_name: minio1
     volumes:
       - minio1-data1:/data1
       - minio1-data2:/data2
@@ -273,6 +274,7 @@ services:
   minio2:
     <<: *minio-common
     hostname: minio2
+    container_name: minio2
     volumes:
       - minio2-data1:/data1
       - minio2-data2:/data2
@@ -280,6 +282,7 @@ services:
   minio3:
     <<: *minio-common
     hostname: minio3
+    container_name: minio3
     volumes:
       - minio3-data1:/data1
       - minio3-data2:/data2
@@ -287,6 +290,7 @@ services:
   minio4:
     <<: *minio-common
     hostname: minio4
+    container_name: minio4
     volumes:
       - minio4-data1:/data1
       - minio4-data2:/data2
