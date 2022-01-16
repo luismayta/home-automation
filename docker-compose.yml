@@ -207,6 +207,40 @@ services:
       - source: fluent-bit-parsers
         target: /fluent-bit/etc/parsers.conf
 
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent
+    container_name: qbittorrent
+    depends_on:
+      - traefik
+      - fluent-bit
+    environment:
+      <<: *common-variables
+      WEBUI_PORT: 8081
+    volumes:
+      - ${APPDATA_PATH}/qbittorrent/config:/config
+      - ${DOWNLOAD_PATH}:/downloads
+    ports:
+      - '6881:6881'
+      - '6881:6881/udp'
+      - '8081:8081'
+    restart: unless-stopped
+    labels:
+      - 'traefik.enable=true'
+
+      - 'traefik.http.routers.qbittorrent.entrypoints=https'
+      - 'traefik.http.routers.qbittorrent.tls=true'
+      - 'traefik.http.routers.qbittorrent.rule=Host(`qbittorrent.${DOMAIN}`)'
+
+      - 'traefik.http.routers.qbittorrent.service=qbittorrent'
+
+      - 'traefik.http.services.qbittorrent.loadbalancer.server.port=8081'
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: ${MACHINE_IP:-localhost}:24224
+        fluentd-async-connect: 'true'
+        tag: qbittorrent.logs
+
 volumes:
   traefik:
     name: traefik
