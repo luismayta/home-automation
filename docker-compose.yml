@@ -301,10 +301,28 @@ services:
       - '9000:9000'
       - '9001:9001'
     depends_on:
+      - traefik
+      - fluent-bit
       - minio1
       - minio2
       - minio3
       - minio4
+    labels:
+      - 'traefik.enable=true'
+
+      - 'traefik.http.routers.minio.entrypoints=https'
+      - 'traefik.http.routers.minio.tls=true'
+      - 'traefik.http.routers.minio.rule=Host(`minio.${DOMAIN}`)'
+
+      - 'traefik.http.routers.minio.service=minio'
+
+      - 'traefik.http.services.minio.loadbalancer.server.port=9000'
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: ${MACHINE_IP:-localhost}:24224
+        fluentd-async-connect: 'true'
+        tag: minio-nginx.logs
 
 volumes:
   traefik:

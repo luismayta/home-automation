@@ -10,3 +10,5 @@
 192.168.3.130 grafana
 192.168.3.130 qbittorrent.hadenlabs.local
 192.168.3.130 qbittorrent
+192.168.3.130 minio.hadenlabs.local
+192.168.3.130 minio
