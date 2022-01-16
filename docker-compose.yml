@@ -293,6 +293,7 @@ services:
 
   nginx:
     image: nginx:1.19.2-alpine
+    container_name: minio-nginx
     hostname: nginx
     volumes:
       - ./provision/minio/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
@@ -313,42 +314,42 @@ volumes:
   minio1-data1:
     driver_opts:
       type: none
-      device: ${MINIO_DATA_PATH}/data-1
+      device: ${MINIO_DATA_PATH}/data1-1
       o: bind
   minio1-data2:
     driver_opts:
       type: none
-      device: ${MINIO_DATA_PATH}/data-2
+      device: ${MINIO_DATA_PATH}/data1-2
       o: bind
   minio2-data1:
     driver_opts:
       type: none
-      device: ${MINIO_DATA_PATH}/data-1
+      device: ${MINIO_DATA_PATH}/data2-1
       o: bind
   minio2-data2:
     driver_opts:
       type: none
-      device: ${MINIO_DATA_PATH}/data-2
+      device: ${MINIO_DATA_PATH}/data2-2
       o: bind
   minio3-data1:
     driver_opts:
       type: none
-      device: ${MINIO_DATA_PATH}/data-1
+      device: ${MINIO_DATA_PATH}/data3-1
       o: bind
   minio3-data2:
     driver_opts:
       type: none
-      device: ${MINIO_DATA_PATH}/data-2
+      device: ${MINIO_DATA_PATH}/data3-2
       o: bind
   minio4-data1:
     driver_opts:
       type: none
-      device: ${MINIO_DATA_PATH}/data-1
+      device: ${MINIO_DATA_PATH}/data4-1
       o: bind
   minio4-data2:
     driver_opts:
       type: none
-      device: ${MINIO_DATA_PATH}/data-2
+      device: ${MINIO_DATA_PATH}/data4-2
       o: bind
 
 configs:
