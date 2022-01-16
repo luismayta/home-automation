@@ -3,14 +3,18 @@ pihole_password: ENC[AES256_GCM,data:u+b2rLI0ZmF2PVNTvgY=,iv:pajkjUhY9LtUz8nsZHA
 pihole_ip: ENC[AES256_GCM,data:LYuzJfNxbv1bU/7ZUw==,iv:qiqUyQ+vqr16vQp6FjkFe1Rf7eV5+Mo0llV1WgGg3L4=,tag:6AltZvVFihqM/P3VDx256Q==,type:str]
 grafana_admin_user: ENC[AES256_GCM,data:RnERfFo=,iv:WYdWXB4pTSao0dyuRfb8LfCaHlli/QtDU4CvhTFv6fc=,tag:Cdhy8mRZm61pma5T1yzJpA==,type:str]
 grafana_admin_password: ENC[AES256_GCM,data:voCwCEbgm1jtTkgtcHg=,iv:Yrd691xMm/u+gLzRFLZu94Mb7IULvfKF443OJU93JZ4=,tag:VN3Pb24AeFpFfnL5gW3wQg==,type:str]
+minio_root_user: ENC[AES256_GCM,data:SG/HNzc=,iv:ALHnLXBSjVQBG6BakavwBkZ/lfybkfXQ18Ywkkhe8Fc=,tag:Btc76BqPM0PTnL/N7+KJUw==,type:str]
+minio_root_password: ENC[AES256_GCM,data:x/unuhKcIcU9NHY5GAU=,iv:eq+rpX1jp00qLryaRcmFiSJU9CzKaxE/YeivcBy1vTU=,tag:DtKUvzzbCqRg+lYAJIbvUw==,type:str]
+minio_access_key: ENC[AES256_GCM,data:biAm8lvFQXoBfQZ8pH4a6URjNjNe,iv:YG0a2MegLTdB/XsAMQho/vP6pLGMl11C9vtWWNeBCZo=,tag:J711hR7+0mZIB/1BxPonXw==,type:str]
+minio_secret_key: ENC[AES256_GCM,data:CrhUSIxCWQlZjMpHTbVm7AgPIg8P5l4iHKwanw8i5zQ=,iv:yblN90u6pKzO7LB4y5sTd++BRrdo9i0WN6KKr/N7G9M=,tag:UIz9mpwc3vBU7Vf1Hs//Og==,type:str]
 sops:
   kms: []
   gcp_kms: []
   azure_kv: []
   hc_vault: []
   age: []
-  lastmodified: '2022-01-11T03:29:58Z'
-  mac: ENC[AES256_GCM,data:oijQy8z0Momo/J4VPUpQZXLNpUimQdHKG/WyDv71R8FcPAfUQ9ylVp59SlHRhMO+bZrMzogChR4dOG1T7nL7grA4Fr2ygvfHukIax+SJP6vdixZgL6ll7OU1pjb8lKlgoxqHGr50rrL05KIgj5cii9G59PAjW9v0OzKh2HKx2xE=,iv:8iJzgfIf+dvTBpP0C45jLgFpeA9JJfT6sWmbN+11BR8=,tag:pQlnQqPDzdQ6M8WOybjrCw==,type:str]
+  lastmodified: '2022-01-16T21:45:31Z'
+  mac: ENC[AES256_GCM,data:EmYEprxuX233m9Y/ACQ4neIsOTfjlIGVqpTx54mawx3NKoZxYKDeAttINJip53ftwjnkZA3tGDt6Uw5k2wc/G1YQ89FoXKCh+YQjGbxPZ7qEA33jipllc9f/zYBp2owcl/02b62iOwnIwb1SX6bLHTMBVp5RBUc1UJG6YTSYB7M=,iv:pyRKXmsFZu+S3daYynEIaMBj6R0Q2uZ9iAY4EwTbGc8=,tag:ASo1Dm3BjiSko1sfajhPbw==,type:str]
   pgp:
     - created_at: '2021-12-27T23:07:09Z'
       enc: |
