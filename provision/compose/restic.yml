@@ -1,7 +1,6 @@
 version: '3.8'
 
 services:
-
   restic:
     image: ajoergensen/rest-server:latest
     container_name: restic-server
