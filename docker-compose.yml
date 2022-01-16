@@ -118,7 +118,7 @@ services:
       - ${MEDIA_PATH}/Cartoons:/cartoons
       - ${MEDIA_PATH}/Documentary:/documentary
       - ${MEDIA_PATH}/Music:/music
-    # network_mode: 'host'
+    network_mode: 'host'
     depends_on:
       - traefik
       - pihole
@@ -161,7 +161,8 @@ services:
       GF_USERS_ALLOW_SIGN_UP: '${GRAFANA_USERS_ALLOW_SIGN_UP}'
     volumes:
       - 'grafana:/var/lib/grafana/'
-      - './provision/grafana/configs/datasources/default.yml:/etc/grafana/provisioning/datasources/datasource.yml'
+      - './provision/grafana/configs/datasources:/etc/grafana/provisioning/datasources'
+      - './provision/grafana/configs/dashboards:/etc/grafana/provisioning/dashboards'
     restart: unless-stopped
     ports:
       - '3000:3000'
