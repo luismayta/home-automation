@@ -200,14 +200,23 @@ services:
       - '24224:24224'
       - '24224:24224/udp'
       - '2020:2020'
-    environment:
-      LOKI_URL: http://loki:3100/loki/api/v1/push
-    volumes:
-      - ./provision/fluent-bit/fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf
-      # - ./provision/fluent-bit/parsers.conf:/fluent-bit/etc/parsers.conf
+    configs:
+      - source: fluent-bit
+        target: /fluent-bit/etc/fluent-bit.conf
+      - source: fluent-bit-parsers
+        target: /fluent-bit/etc/parsers.conf
+
 
 volumes:
   traefik:
     name: traefik
   grafana:
     name: grafana
+
+configs:
+  fluent-bit:
+    name: ${FLUENT_BIT_CONFIG_NAME:-fluent-bit-conf}
+    file: ./provision/fluent-bit/fluent-bit.conf
+  fluent-bit-parsers:
+    name: fluent-bit-parsers
+    file: ./provision/fluent-bit/parsers.conf
