@@ -10,7 +10,8 @@ x-common-variables: &common-variables
 # minio common
 
 x-minio-common: &minio-common
-  image: quay.io/minio/minio:RELEASE.2022-01-08T03-11-54Z
+  image: minio/minio
+  platform: linux/arm64
   command: server --console-address ":9001" http://minio{1...4}/data{1...2}
   expose:
     - '9000'
