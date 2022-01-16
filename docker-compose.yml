@@ -10,8 +10,7 @@ x-common-variables: &common-variables
 # minio common
 
 x-minio-common: &minio-common
-  image: minio/minio
-  platform: linux/arm64
+  image: pixelchrome/minio-arm
   command: server --console-address ":9001" http://minio{1...4}/data{1...2}
   expose:
     - '9000'
