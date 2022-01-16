@@ -207,7 +207,6 @@ services:
       - source: fluent-bit-parsers
         target: /fluent-bit/etc/parsers.conf
 
-
 volumes:
   traefik:
     name: traefik
