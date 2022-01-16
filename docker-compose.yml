@@ -1,9 +1,30 @@
 version: '3.8'
 
+# common variables
+
 x-common-variables: &common-variables
   PUID: ${PUID}
   PGID: ${PGID}
   TZ: '${TIMEZONE}'
+
+# minio common
+
+x-minio-common: &minio-common
+  image: quay.io/minio/minio:RELEASE.2022-01-08T03-11-54Z
+  command: server --console-address ":9001" http://minio{1...4}/data{1...2}
+  expose:
+    - '9000'
+    - '9001'
+  environment:
+    MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+    MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
+    MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
+  healthcheck:
+    test: ['CMD', 'curl', '-f', 'http://localhost:9000/minio/health/live']
+    interval: 30s
+    timeout: 20s
+    retries: 3
 
 services:
   traefik:
@@ -241,11 +262,93 @@ services:
         fluentd-async-connect: 'true'
         tag: qbittorrent.logs
 
+  minio1:
+    <<: *minio-common
+    hostname: minio1
+    volumes:
+      - minio1-data1:/data1
+      - minio1-data2:/data2
+
+  minio2:
+    <<: *minio-common
+    hostname: minio2
+    volumes:
+      - minio2-data1:/data1
+      - minio2-data2:/data2
+
+  minio3:
+    <<: *minio-common
+    hostname: minio3
+    volumes:
+      - minio3-data1:/data1
+      - minio3-data2:/data2
+
+  minio4:
+    <<: *minio-common
+    hostname: minio4
+    volumes:
+      - minio4-data1:/data1
+      - minio4-data2:/data2
+
+  nginx:
+    image: nginx:1.19.2-alpine
+    hostname: nginx
+    volumes:
+      - ./provision/minio/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    depends_on:
+      - minio1
+      - minio2
+      - minio3
+      - minio4
+
 volumes:
   traefik:
     name: traefik
   grafana:
     name: grafana
+  minio1-data1:
+    driver_opts:
+      type: none
+      device: ${MINIO_DATA_PATH}/data-1
+      o: bind
+  minio1-data2:
+    driver_opts:
+      type: none
+      device: ${MINIO_DATA_PATH}/data-2
+      o: bind
+  minio2-data1:
+    driver_opts:
+      type: none
+      device: ${MINIO_DATA_PATH}/data-1
+      o: bind
+  minio2-data2:
+    driver_opts:
+      type: none
+      device: ${MINIO_DATA_PATH}/data-2
+      o: bind
+  minio3-data1:
+    driver_opts:
+      type: none
+      device: ${MINIO_DATA_PATH}/data-1
+      o: bind
+  minio3-data2:
+    driver_opts:
+      type: none
+      device: ${MINIO_DATA_PATH}/data-2
+      o: bind
+  minio4-data1:
+    driver_opts:
+      type: none
+      device: ${MINIO_DATA_PATH}/data-1
+      o: bind
+  minio4-data2:
+    driver_opts:
+      type: none
+      device: ${MINIO_DATA_PATH}/data-2
+      o: bind
 
 configs:
   fluent-bit:

@@ -16,6 +16,9 @@ openssl_path_ssl: '/etc/keys/ssl'
 openssl_certfile: '{{ openssl_path_ssl }}/{{ openssl_domain }}.crt'
 openssl_keyfile: '{{ openssl_path_ssl }}/{{ openssl_domain }}.key'
 
+minio_root_path: '/media/eviljasperdisk/minio'
+minio_data_path: '{{ minio_root_path }}/data'
+
 common_packages:
   - 'vim'
   - 'git'
@@ -55,6 +58,12 @@ common_create_directories:
   - path: '/media/eviljasperdisk/dnsmasq/var/log'
     owner: '{{ user }}'
     mode: '0775'
+  - path: '{{ minio_root_path }}'
+    owner: '{{ user }}'
+    mode: '0775'
+  - path: '{{ minio_data_path }}'
+    owner: '{{ user }}'
+    mode: '0775'
 
 common_environment_dict:
   path: '/home/{{ user }}/home-automation/.env'
@@ -83,6 +92,13 @@ common_environment_dict:
     GRAFANA_SECURITY_ADMIN_USER: '{{ grafana_admin_user }}'
     GRAFANA_SECURITY_ADMIN_PASSWORD: '{{ grafana_admin_password }}'
     GRAFANA_USERS_ALLOW_SIGN_UP: false
+    # minio
+    MINIO_ROOT_PATH: '{{ minio_root_path }}'
+    MINIO_DATA_PATH: '{{ minio_data_path }}'
+    MINIO_ROOT_USER: '{{ minio_root_user }}'
+    MINIO_ROOT_PASSWORD: '{{ minio_root_password }}'
+    MINIO_ACCESS_KEY: '{{ minio_access_key }}'
+    MINIO_SECRET_KEY: '{{ minio_secret_key }}'
 
 common_deployments:
   - name: 'home-automation'
