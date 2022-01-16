@@ -7,9 +7,11 @@ x-common-variables: &common-variables
 
 services:
   traefik:
-    container_name: traefik
     image: traefik
+    container_name: traefik
     restart: always
+    depends_on:
+      - fluent-bit
     ports:
       - '53:53/tcp'
       - '53:53/udp'
@@ -50,8 +52,8 @@ services:
     logging:
       driver: fluentd
       options:
+        fluentd-address: ${MACHINE_IP:-localhost}:24224
         fluentd-async-connect: 'true'
-        fluentd-address: fluent-bit:24224
         tag: traefik.logs
 
   pihole:
@@ -59,6 +61,7 @@ services:
     container_name: pihole
     depends_on:
       - traefik
+      - fluent-bit
     environment:
       <<: *common-variables
       WEBPASSWORD: '${PIHOLE_PASSWORD}'
@@ -99,12 +102,12 @@ services:
     logging:
       driver: fluentd
       options:
+        fluentd-address: ${MACHINE_IP:-localhost}:24224
         fluentd-async-connect: 'true'
-        fluentd-address: fluent-bit:24224
         tag: pihole.logs
 
   jellyfin:
-    image: jellyfin/jellyfin
+    image: linuxserver/jellyfin
     container_name: jellyfin
     volumes:
       - ${APPDATA_PATH}/jellyfin/config:/config
@@ -115,17 +118,18 @@ services:
       - ${MEDIA_PATH}/Cartoons:/cartoons
       - ${MEDIA_PATH}/Documentary:/documentary
       - ${MEDIA_PATH}/Music:/music
-    network_mode: 'host'
+    # network_mode: 'host'
     depends_on:
       - traefik
       - pihole
+      - fluent-bit
     ports:
       # for some reason jellyfin app doesn't work with traefik proxy, open port directly for local mobile clients
       - '8096:8096'
       - '7359:7359/udp'
     environment:
       <<: *common-variables
-    restart: always
+    restart: unless-stopped
     labels:
       - 'traefik.enable=true'
 
@@ -139,8 +143,8 @@ services:
     logging:
       driver: fluentd
       options:
+        fluentd-address: ${MACHINE_IP:-localhost}:24224
         fluentd-async-connect: 'true'
-        fluentd-address: fluent-bit:24224
         tag: jellyfin.logs
 
   grafana:
@@ -149,6 +153,7 @@ services:
     hostname: grafana_server
     depends_on:
       - traefik
+      - fluent-bit
     environment:
       <<: *common-variables
       GF_SECURITY_ADMIN_USER: '${GRAFANA_SECURITY_ADMIN_USER}'
@@ -156,7 +161,7 @@ services:
       GF_USERS_ALLOW_SIGN_UP: '${GRAFANA_USERS_ALLOW_SIGN_UP}'
     volumes:
       - 'grafana:/var/lib/grafana/'
-      - './provision/grafana/configs/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml'
+      - './provision/grafana/configs/datasources/default.yml:/etc/grafana/provisioning/datasources/datasource.yml'
     restart: unless-stopped
     ports:
       - '3000:3000'
@@ -170,12 +175,16 @@ services:
       - 'traefik.http.routers.grafana.service=grafana'
 
       - 'traefik.http.services.grafana.loadbalancer.server.port=3000'
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: ${MACHINE_IP:-localhost}:24224
+        fluentd-async-connect: 'true'
+        tag: grafana.logs
 
   loki:
     image: grafana/loki
     container_name: loki
-    depends_on:
-      - grafana
     volumes:
       - ./provision/loki/:/etc/loki/
     command: -config.file=/etc/loki/loki.yml
@@ -183,10 +192,10 @@ services:
       - '3100:3100'
 
   fluent-bit:
-    image: grafana/fluent-bit-plugin-loki
+    image: fluent/fluent-bit
     container_name: fluent-bit
     depends_on:
-      - grafana
+      - loki
     ports:
       - '24224:24224'
       - '24224:24224/udp'
@@ -195,7 +204,7 @@ services:
       LOKI_URL: http://loki:3100/loki/api/v1/push
     volumes:
       - ./provision/fluent-bit/fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf
-      - ./provision/fluent-bit/parsers.conf:/fluent-bit/etc/parsers.conf
+      # - ./provision/fluent-bit/parsers.conf:/fluent-bit/etc/parsers.conf
 
 volumes:
   traefik:
