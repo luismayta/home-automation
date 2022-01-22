@@ -12,3 +12,5 @@
 192.168.3.130 qbittorrent
 192.168.3.130 minio.hadenlabs.local
 192.168.3.130 minio
+192.168.3.130 consul.hadenlabs.local
+192.168.3.130 consul

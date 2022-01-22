@@ -77,6 +77,32 @@ services:
         fluentd-async-connect: 'true'
         tag: traefik.logs
 
+  consul:
+    image: consul
+    container_name: consul
+    restart: always
+    ports:
+      - '8500:8500'
+      - '8600:8600/tcp'
+      - '8600:8600/udp'
+    command: 'agent -server -ui -node=server-1 -bootstrap-expect=1 -client=0.0.0.0'
+    labels:
+      - 'traefik.enable=true'
+
+      - 'traefik.http.routers.consul.entrypoints=https'
+      - 'traefik.http.routers.consul.tls=true'
+
+      - 'traefik.http.routers.consul.service=consul'
+
+      - 'traefik.http.routers.consul.rule=Host(`consul.${DOMAIN}`)'
+      - 'traefik.http.services.consul.loadbalancer.server.port=8500'
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: ${MACHINE_IP:-localhost}:24224
+        fluentd-async-connect: 'true'
+        tag: consul.logs
+
   pihole:
     image: pihole/pihole:latest
     container_name: pihole
