@@ -96,6 +96,7 @@ services:
     command: 'agent -config-file=/consul/config/server.json'
     volumes:
       - './provision/consul/config/server.json:/consul/config/server.json'
+      - 'consul-data:/consul/data/'
     labels:
       - 'traefik.enable=true'
 
@@ -362,6 +363,8 @@ volumes:
     name: traefik
   grafana:
     name: grafana
+  consul-data:
+    name: consul-data
   minio1-data1:
     driver_opts:
       type: none
