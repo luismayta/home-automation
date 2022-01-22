@@ -3,9 +3,17 @@ version: '3.8'
 # common variables
 
 x-common-variables: &common-variables
-  PUID: ${PUID}
-  PGID: ${PGID}
+  PUID: '${PUID}'
+  PGID: '${PGID}'
   TZ: '${TIMEZONE}'
+
+# logging common
+x-logging-common: &logging-common
+  driver: fluentd
+
+x-logging-options: &logging-options
+  fluentd-address: ${MACHINE_IP:-localhost}:24224
+  fluentd-async-connect: 'true'
 
 # minio common
 
@@ -71,15 +79,16 @@ services:
       - 'traefik.http.routers.traefik.rule=Host(`traefik.${DOMAIN}`)'
       - 'traefik.http.routers.traefik.service=api@internal'
     logging:
-      driver: fluentd
+      <<: *logging-common
       options:
-        fluentd-address: ${MACHINE_IP:-localhost}:24224
-        fluentd-async-connect: 'true'
+        <<: *logging-options
         tag: traefik.logs
 
   consul:
     image: consul
     container_name: consul
+    depends_on:
+      - fluent-bit
     restart: always
     ports:
       - '8500:8500'
@@ -97,10 +106,9 @@ services:
       - 'traefik.http.routers.consul.rule=Host(`consul.${DOMAIN}`)'
       - 'traefik.http.services.consul.loadbalancer.server.port=8500'
     logging:
-      driver: fluentd
+      <<: *logging-common
       options:
-        fluentd-address: ${MACHINE_IP:-localhost}:24224
-        fluentd-async-connect: 'true'
+        <<: *logging-options
         tag: consul.logs
 
   pihole:
@@ -147,10 +155,9 @@ services:
       - 'traefik.udp.routers.dnsudp.entrypoints=dnsudp'
       - 'traefik.udp.services.pihole.loadbalancer.server.port=53'
     logging:
-      driver: fluentd
+      <<: *logging-common
       options:
-        fluentd-address: ${MACHINE_IP:-localhost}:24224
-        fluentd-async-connect: 'true'
+        <<: *logging-options
         tag: pihole.logs
 
   jellyfin:
@@ -188,10 +195,9 @@ services:
       - 'traefik.http.routers.jellyfin.rule=Host(`jellyfin.${DOMAIN}`)'
       - 'traefik.http.services.jellyfin.loadbalancer.server.port=8096'
     logging:
-      driver: fluentd
+      <<: *logging-common
       options:
-        fluentd-address: ${MACHINE_IP:-localhost}:24224
-        fluentd-async-connect: 'true'
+        <<: *logging-options
         tag: jellyfin.logs
 
   grafana:
@@ -224,10 +230,9 @@ services:
 
       - 'traefik.http.services.grafana.loadbalancer.server.port=3000'
     logging:
-      driver: fluentd
+      <<: *logging-common
       options:
-        fluentd-address: ${MACHINE_IP:-localhost}:24224
-        fluentd-async-connect: 'true'
+        <<: *logging-options
         tag: grafana.logs
 
   loki:
@@ -282,10 +287,9 @@ services:
 
       - 'traefik.http.services.qbittorrent.loadbalancer.server.port=8081'
     logging:
-      driver: fluentd
+      <<: *logging-common
       options:
-        fluentd-address: ${MACHINE_IP:-localhost}:24224
-        fluentd-async-connect: 'true'
+        <<: *logging-options
         tag: qbittorrent.logs
 
   minio1:
@@ -347,10 +351,9 @@ services:
 
       - 'traefik.http.services.minio.loadbalancer.server.port=9000'
     logging:
-      driver: fluentd
+      <<: *logging-common
       options:
-        fluentd-address: ${MACHINE_IP:-localhost}:24224
-        fluentd-async-connect: 'true'
+        <<: *logging-options
         tag: minio-nginx.logs
 
 volumes:
