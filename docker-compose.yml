@@ -1,7 +1,6 @@
 version: '3.8'
 
 # common variables
-
 x-common-variables: &common-variables
   PUID: '${PUID}'
   PGID: '${PGID}'
@@ -11,12 +10,12 @@ x-common-variables: &common-variables
 x-logging-common: &logging-common
   driver: fluentd
 
+# logging options
 x-logging-options: &logging-options
   fluentd-address: ${MACHINE_IP:-localhost}:24224
   fluentd-async-connect: 'true'
 
 # minio common
-
 x-minio-common: &minio-common
   image: pixelchrome/minio-arm
   command: server --console-address ":9001" http://minio{1...4}/data{1...2}
@@ -94,7 +93,9 @@ services:
       - '8500:8500'
       - '8600:8600/tcp'
       - '8600:8600/udp'
-    command: 'agent -server -ui -node=server-1 -bootstrap-expect=1 -client=0.0.0.0'
+    command: 'agent -config-file=/consul/config/server.json'
+    volumes:
+      - './provision/consul/config/server.json:/consul/config/server.json'
     labels:
       - 'traefik.enable=true'
 
