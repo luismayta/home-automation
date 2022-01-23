@@ -19,6 +19,9 @@ openssl_keyfile: '{{ openssl_path_ssl }}/{{ openssl_domain }}.key'
 minio_root_path: '/media/eviljasperdisk/minio'
 minio_data_path: '{{ minio_root_path }}/data'
 
+consul_root_path: '/media/eviljasperdisk/consul'
+consul_data_path: '{{ consul_root_path }}/data'
+
 common_packages:
   - 'vim'
   - 'git'
@@ -56,6 +59,12 @@ common_create_directories:
     owner: '{{ user }}'
     mode: '0775'
   - path: '/media/eviljasperdisk/restick/data'
+    owner: '{{ user }}'
+    mode: '0775'
+  - path: '{{ consul_root_path }}'
+    owner: '{{ user }}'
+    mode: '0775'
+  - path: '{{ consul_data_path }}'
     owner: '{{ user }}'
     mode: '0775'
   - path: '/media/eviljasperdisk/dnsmasq'
@@ -129,6 +138,9 @@ common_environment_dict:
     MINIO_ROOT_PASSWORD: '{{ minio_root_password }}'
     MINIO_ACCESS_KEY: '{{ minio_access_key }}'
     MINIO_SECRET_KEY: '{{ minio_secret_key }}'
+    # consul
+    CONSUL_ROOT_PATH: '{{ consul_root_path }}'
+    CONSUL_DATA_PATH: '{{ consul_data_path }}'
     # afp
     AFP_USER: '{{ afp_username }}'
     AFP_PASSWORD: '{{ afp_password }}'

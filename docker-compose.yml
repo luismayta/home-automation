@@ -373,6 +373,10 @@ volumes:
     name: grafana
   consul-data:
     name: consul-data
+    driver_opts:
+      type: none
+      device: ${CONSUL_DATA_PATH}/data
+      o: bind
   minio1-data1:
     driver_opts:
       type: none
