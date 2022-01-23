@@ -18,7 +18,7 @@ x-logging-options: &logging-options
 # minio common
 x-minio-common: &minio-common
   image: pixelchrome/minio-arm
-  command: server --console-address ":9001" http://minio{1...4}/data{1...2}
+  command: server --console-address ":9001" http://minio{1...2}/data{1...2}
   expose:
     - '9000'
     - '9001'
@@ -336,22 +336,6 @@ services:
       - minio2-data1:/data1
       - minio2-data2:/data2
 
-  minio3:
-    <<: *minio-common
-    hostname: minio3
-    container_name: minio3
-    volumes:
-      - minio3-data1:/data1
-      - minio3-data2:/data2
-
-  minio4:
-    <<: *minio-common
-    hostname: minio4
-    container_name: minio4
-    volumes:
-      - minio4-data1:/data1
-      - minio4-data2:/data2
-
   nginx:
     image: nginx:1.19.2-alpine
     container_name: minio-nginx
@@ -366,8 +350,6 @@ services:
       - fluent-bit
       - minio1
       - minio2
-      - minio3
-      - minio4
     labels:
       - 'traefik.enable=true'
 
@@ -410,26 +392,6 @@ volumes:
     driver_opts:
       type: none
       device: ${MINIO_DATA_PATH}/data2-2
-      o: bind
-  minio3-data1:
-    driver_opts:
-      type: none
-      device: ${MINIO_DATA_PATH}/data3-1
-      o: bind
-  minio3-data2:
-    driver_opts:
-      type: none
-      device: ${MINIO_DATA_PATH}/data3-2
-      o: bind
-  minio4-data1:
-    driver_opts:
-      type: none
-      device: ${MINIO_DATA_PATH}/data4-1
-      o: bind
-  minio4-data2:
-    driver_opts:
-      type: none
-      device: ${MINIO_DATA_PATH}/data4-2
       o: bind
 
 configs:
