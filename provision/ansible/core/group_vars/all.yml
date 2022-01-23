@@ -40,6 +40,12 @@ common_create_directories:
   - path: '/media/eviljasperdisk/data'
     owner: '{{ user }}'
     mode: '0775'
+  - path: '/media/eviljasperdisk/data/timemachine'
+    owner: '{{ user }}'
+    mode: '0775'
+  - path: '/media/eviljasperdisk/data/study'
+    owner: '{{ user }}'
+    mode: '0775'
   - path: '/media/eviljasperdisk/downloads'
     owner: '{{ user }}'
     mode: '0775'
@@ -123,6 +129,9 @@ common_environment_dict:
     MINIO_ROOT_PASSWORD: '{{ minio_root_password }}'
     MINIO_ACCESS_KEY: '{{ minio_access_key }}'
     MINIO_SECRET_KEY: '{{ minio_secret_key }}'
+    # afp
+    AFP_USER: '{{ afp_username }}'
+    AFP_PASSWORD: '{{ afp_password }}'
 
 common_deployments:
   - name: 'home-automation'
