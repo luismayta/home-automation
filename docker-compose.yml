@@ -83,6 +83,32 @@ services:
         <<: *logging-options
         tag: traefik.logs
 
+  netatalk:
+    image: cptactionhank/netatalk
+    container_name: netatalk
+    hostname: netatalk
+    network_mode: host
+    depends_on:
+      - fluent-bit
+    ports:
+      - "548:548"
+    volumes:
+      - ./provision/netatalk/afp.conf:/etc/afp.conf:ro
+      - ${DATA_PATH}/timemachine:/timemachine
+      - ${DATA_PATH}/study:/data
+    environment:
+      <<: *common-variables
+      AFP_UID: '${PUID}'
+      AFP_GID: '${PGID}'
+      AFP_USER: "${AFP_USER}"
+      AFP_PASSWORD: "${AFP_PASSWORD}"
+    restart: always
+    logging:
+      <<: *logging-common
+      options:
+        <<: *logging-options
+        tag: netatalk.logs
+
   consul:
     image: consul
     container_name: consul
