@@ -1,11 +1,10 @@
-<!-- Space: HomeAutomation -->
-<!-- Parent: Project -->
-<!-- Title: Releasing -->
-
+<!-- Space: Projects -->
+<!-- Parent: HomeAutomation -->
+<!-- Title: Releasing HomeAutomation -->
 <!-- Label: HomeAutomation -->
 <!-- Label: Project -->
 <!-- Label: Releasing -->
-<!-- Include: docs/disclaimer.md -->
+<!-- Include: disclaimer.md -->
 <!-- Include: ac:toc -->
 
 # Releasing

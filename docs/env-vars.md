@@ -1,11 +1,10 @@
-<!-- Space: HomeAutomation -->
-<!-- Parent: Project -->
-<!-- Title: Env Vars -->
-
+<!-- Space: Projects -->
+<!-- Parent: HomeAutomation -->
+<!-- Title: EnvVars HomeAutomation -->
 <!-- Label: HomeAutomation -->
 <!-- Label: Project -->
-<!-- Label: Env Vars -->
-<!-- Include: docs/disclaimer.md -->
+<!-- Label: EnvVars -->
+<!-- Include: disclaimer.md -->
 <!-- Include: ac:toc -->
 
 ---

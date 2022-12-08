@@ -15,7 +15,7 @@ confluence:
   title: Project
 
 # Logo for this project
-#logo: docs/logo.png
+# logo: docs/logo.png
 
 # License of this project
 license: 'LGPL-3.0'
@@ -31,12 +31,21 @@ badges:
   - name: Lint
     image: https://img.shields.io/github/workflow/status/luismayta/home-automation/lint-code
     url: https://github.com/luismayta/home-automation/actions?workflow=lint-code
+  - name: CI
+    image: https://img.shields.io/github/workflow/status/luismayta/home-automation/ci
+    url: https://github.com/luismayta/home-automation/actions?workflow=ci
+  - name: Test
+    image: https://img.shields.io/github/workflow/status/luismayta/home-automation/test
+    url: https://github.com/luismayta/home-automation/actions?workflow=test
   - name: pre-commit
     image: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
     url: https://github.com/pre-commit/pre-commit
   - name: Conventional Commits
     image: https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow
     url: https://conventionalcommits.org
+  - name: KeepAChangelog
+    image: https://img.shields.io/badge/changelog-Keep%20a%20Changelog%20v1.0.0-orange
+    url: https://keepachangelog.com
 
 requirements: |-
 
@@ -57,6 +66,9 @@ features:
 description: |-
 
   home-automation for project
+
+usages:
+  - docs/usage.md
 
 examples:
   - 'docs/examples/common.md'

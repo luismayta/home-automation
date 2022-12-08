@@ -1,9 +1,18 @@
 default_stages:
   - commit
+exclude: >
+  (?x)^(
+    ^(\/|)vendor\/(.*?)$|
+    .+\.node_modules\/.*$|
+    .+\.external_modules.*$|
+    .+\.terraform.*$|
+    .+\.venv.*$|
+    .+\.lock$|
+  )$
 
 repos:
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.1.0
+    rev: v2.2.2
     hooks:
       - id: codespell
         args: [--ignore-words=.codespell-ignores]
@@ -13,17 +22,19 @@ repos:
             .+\.node_modules\/.*$|
             .+\.sops.*$|
             .+\.lock$|
+            go.mod|
+            go.sum|
           )$
   - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
-    rev: v5.0.0
+    rev: v9.3.0
     hooks:
       - id: commitlint
         stages: [commit-msg]
         additional_dependencies: ['@hadenlabs/commitlint-config']
         args:
-          - --config=.github/linters/.commitlintrc.json
+          - --config=.ci/linters/.commitlintrc.json
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.0.1
+    rev: v4.4.0
     hooks:
       - id: detect-private-key
         files: ^(?!\.?git-crypt)
@@ -38,6 +49,8 @@ repos:
       - id: check-json
       - id: check-xml
       - id: check-yaml
+        args:
+          - --allow-multiple-documents
       - id: check-byte-order-marker
       - id: check-ast
       - id: debug-statements
@@ -48,13 +61,18 @@ repos:
       - id: fix-encoding-pragma
       - id: sort-simple-yaml
   - repo: https://github.com/hadenlabs/pre-commit-hooks
-    rev: bd40b567556efd1d3b207fd7a43054fb34e644fa
+    rev: e50751c9323b0a03f27271c57513f5c389f6591b
     hooks:
       - id: do-not-commit
       - id: markdown-link-check
         args:
-          - --config=.github/linters/markdown-link-config.json
-        exclude: \.tpl.md$
+          - --config=.ci/linters/markdown-link-config.json
+        exclude: >
+          (?x)^(
+            docs\/include\/terraform.md$|
+            .+\.tpl.md$|
+          )$
+
       - id: shellcheck
         exclude: >
           (?x)^(
@@ -63,12 +81,11 @@ repos:
           )$
         args:
           - --exclude=SC1072,SC1073,SC2068
-      - id: todocheck
       - id: gitleaks
         args:
           - --path=.
-          - --repo-config-path=.github/linters/.gitleaks.toml
+          - --repo-config-path=.ci/linters/.gitleaks.toml
           - --verbose
       - id: hadolint
         args:
-          - --config=.github/linters/.hadolint.yaml
+          - --config=.ci/linters/.hadolint.yaml
