@@ -1,9 +1,8 @@
-<!-- Space: HomeAutomation -->
-<!-- Parent: Project -->
-<!-- Title: HomeAutomation Examples -->
-
+<!-- Space: Projects -->
+<!-- Parent: HomeAutomation -->
+<!-- Title: Examples HomeAutomation -->
 <!-- Label: Examples -->
-<!-- Include: docs/disclaimer.md -->
+<!-- Include: ./../disclaimer.md -->
 <!-- Include: ac:toc -->
 
 ### common

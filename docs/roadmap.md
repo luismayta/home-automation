@@ -1,9 +1,8 @@
-<!-- Space: HomeAutomation -->
-<!-- Parent: Project -->
-<!-- Title: Project Roadmap -->
-
+<!-- Space: Projects -->
+<!-- Parent: HomeAutomation -->
+<!-- Title: Roadmap HomeAutomation -->
 <!-- Label: Roadmap -->
-<!-- Include: docs/disclaimer.md -->
+<!-- Include: disclaimer.md -->
 <!-- Include: ac:toc -->
 
 <!-- Macro: :todo:
@@ -52,3 +51,7 @@ You can see the corresponding projects on [home-automation](https://github.com/l
 ### December 2021
 
 ## Long Lived Initiatives
+
+These projects don't have an end date. They are something we'll continuously work towards.
+
+- [Better Docs](https://hadenlabs.atlassian.net/wiki)

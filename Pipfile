@@ -19,12 +19,11 @@ pydocstyle = "*"
 pygments = "*"
 pylint = "*"
 pymdown-extensions = "*"
+black = "*"
 
 [packages]
 docker-compose = "*"
 
 [scripts]
+test = "pytest"
 update = "pre-commit autoupdate"
-
-[requires]
-python_version = "3.9.2"

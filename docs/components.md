@@ -1,11 +1,10 @@
-<!-- Space: HomeAutomation -->
-<!-- Parent: Project -->
-<!-- Title: Project Components -->
-
+<!-- Space: Projects -->
+<!-- Parent: HomeAutomation -->
+<!-- Title: Components HomeAutomation -->
 <!-- Label: HomeAutomation -->
 <!-- Label: Project -->
 <!-- Label: Components -->
-<!-- Include: docs/disclaimer.md -->
+<!-- Include: disclaimer.md -->
 <!-- Include: ac:toc -->
 
-# components
+# Components

@@ -1,11 +1,10 @@
-<!-- Space: HomeAutomation -->
-<!-- Parent: Project -->
-<!-- Title: Project Commands -->
-
+<!-- Space: Projects -->
+<!-- Parent: HomeAutomation -->
+<!-- Title: Commands HomeAutomation -->
 <!-- Label: HomeAutomation -->
 <!-- Label: Project -->
 <!-- Label: Commands -->
-<!-- Include: docs/disclaimer.md -->
+<!-- Include: disclaimer.md -->
 <!-- Include: ac:toc -->
 
 # Commands
