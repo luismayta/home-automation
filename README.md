@@ -15,7 +15,7 @@
 
   -->
 
-[![Latest Release](https://img.shields.io/github/release/luismayta/home-automation)](https://github.com/luismayta/home-automation/releases) [![Lint](https://img.shields.io/github/workflow/status/luismayta/home-automation/lint-code)](https://github.com/luismayta/home-automation/actions?workflow=lint-code) [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit) [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow)](https://conventionalcommits.org)
+[![Latest Release](https://img.shields.io/github/release/luismayta/home-automation)](https://github.com/luismayta/home-automation/releases) [![Lint](https://img.shields.io/github/workflow/status/luismayta/home-automation/lint-code)](https://github.com/luismayta/home-automation/actions?workflow=lint-code) [![CI](https://img.shields.io/github/workflow/status/luismayta/home-automation/ci)](https://github.com/luismayta/home-automation/actions?workflow=ci) [![Test](https://img.shields.io/github/workflow/status/luismayta/home-automation/test)](https://github.com/luismayta/home-automation/actions?workflow=test) [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit) [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow)](https://conventionalcommits.org) [![KeepAChangelog](https://img.shields.io/badge/changelog-Keep%20a%20Changelog%20v1.0.0-orange)](https://keepachangelog.com)
 
 # home-automation
 
@@ -36,17 +36,24 @@ This is a list of plugins that need to be installed previously to enjoy all the 
 - [python](https://www.python.org)
 - [taskfile](https://github.com/go-task/task)
 
+## Usage
+
+# How to use this project
+
+```bash
+task setup
+```
+
 ## Examples
 
-<!-- Space: HomeAutomation -->
-<!-- Parent: Project -->
-<!-- Title: HomeAutomation Examples -->
-
+<!-- Space: Projects -->
+<!-- Parent: HomeAutomation -->
+<!-- Title: Examples HomeAutomation -->
 <!-- Label: Examples -->
-<!-- Include: docs/disclaimer.md -->
+<!-- Include: ./../disclaimer.md -->
 <!-- Include: ac:toc -->
 
-### common
+### Common
 
 ## Help
 
@@ -75,7 +82,7 @@ Using the given version number of `MAJOR.MINOR.PATCH`, we apply the following co
 
 ## Copyright
 
-Copyright © 2018-2022 [Hadenlabs](https://hadenlabs.com)
+Copyright © 2018-2023 [Hadenlabs](https://hadenlabs.com)
 
 ## Trademarks
 
