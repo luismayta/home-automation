@@ -19,6 +19,7 @@ pydocstyle = "*"
 pygments = "*"
 pylint = "*"
 pymdown-extensions = "*"
+pytest = ">=6.2.4"
 black = "*"
 
 [packages]

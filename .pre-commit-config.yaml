@@ -69,6 +69,8 @@ repos:
           - --config=.ci/linters/markdown-link-config.json
         exclude: >
           (?x)^(
+            .+\.docs/env-vars.md$|
+            docs/env-vars.md$|
             docs\/include\/terraform.md$|
             .+\.tpl.md$|
           )$
