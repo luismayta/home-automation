@@ -6,16 +6,16 @@
 
 - name: hadenlabs.docker
   src: https://github.com/hadenlabs/ansible-role-docker
-  version: origin/develop
+  version: origin/main
 
 - name: hadenlabs.common
   src: https://github.com/hadenlabs/ansible-role-common
-  version: origin/develop
+  version: origin/main
 
 - name: hadenlabs.authorization
   src: https://github.com/hadenlabs/ansible-role-authorization
-  version: origin/develop
+  version: origin/main
 
 - name: hadenlabs.openssl
   src: https://github.com/hadenlabs/ansible-role-openssl
-  version: origin/develop
+  version: origin/main
