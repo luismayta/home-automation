@@ -1,6 +1,6 @@
 # More info at https://github.com/pi-hole/docker-pi-hole/ and https://docs.pi-hole.net/
 
-version: '3.8'
+version: "3.8"
 
 services:
   pihole:
@@ -8,18 +8,18 @@ services:
     container_name: pihole
     hostname: pihole
     ports:
-      - '53:53/tcp'
-      - '53:53/udp'
-      - '67:67/udp'
-      - '80:80/tcp'
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+      - "80:80/tcp"
     environment:
-      WEBPASSWORD: '${PIHOLE_PASSWORD}'
-      ServerIP: '${PIHOLE_IP}'
+      WEBPASSWORD: "${PIHOLE_PASSWORD}"
+      ServerIP: "${PIHOLE_IP}"
       VIRTUAL_HOST: pi.hole
     # Volumes store your data between container upgrades
     volumes:
-      - '${APPDATA_PATH}/pihole/etc/pihole/:/etc/pihole/'
-      - '${APPDATA_PATH}/pihole/etc/dnsmasq.d/:/etc/dnsmasq.d/'
+      - "${APPDATA_PATH}/pihole/etc/pihole/:/etc/pihole/"
+      - "${APPDATA_PATH}/pihole/etc/dnsmasq.d/:/etc/dnsmasq.d/"
     # Recommended but not required (DHCP needs NET_ADMIN)
     #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
     cap_add:

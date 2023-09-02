@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 tasks:
   check:
@@ -14,23 +14,23 @@ tasks:
     run: once
     preconditions:
       - sh: command -v sops
-        msg: 'Please Install sops'
+        msg: "Please Install sops"
 
   check:gpg:
     desc: Exist sops
     run: once
     preconditions:
       - sh: command -v gpg
-        msg: 'Please Install gpg'
+        msg: "Please Install gpg"
 
   check:vars:
     desc: Exist vars for sops
     run: once
     preconditions:
       - sh: test -v GPG_KEY
-        msg: 'Please add var environment GPG_KEY'
+        msg: "Please add var environment GPG_KEY"
       - sh: test -v KEYBASE_PROJECT_PATH
-        msg: 'Please add var environment KEYBASE_PROJECT_PATH'
+        msg: "Please add var environment KEYBASE_PROJECT_PATH"
 
   make:
     desc: Make sops gen key.

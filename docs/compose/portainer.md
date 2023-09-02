@@ -16,13 +16,13 @@
 #### Run
 
 ```bash
-pipenv run docker-compose -f docker-compose.yml -f provision/compose/portainer.yml up -d --remove-orphans
+poetry run docker-compose -f docker-compose.yml -f provision/compose/portainer.yml up -d --remove-orphans
 ```
 
 #### Down
 
 ```bash
-pipenv run docker-compose -f docker-compose.yml -f provision/compose/portainer.yml down
+poetry run docker-compose -f docker-compose.yml -f provision/compose/portainer.yml down
 ```
 
 ### Task

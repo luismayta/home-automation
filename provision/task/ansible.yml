@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 tasks:
   check:
@@ -12,7 +12,7 @@ tasks:
     run: once
     preconditions:
       - sh: command -v ansible
-        msg: 'Please Install ansible'
+        msg: "Please Install ansible"
 
   update:
     desc: install or update roles
@@ -21,7 +21,7 @@ tasks:
       - task: check
     cmds:
       - >
-        pipenv run ansible-galaxy
+        poetry run ansible-galaxy
         install
         -r {{.ANSIBLE_DIR}}/{{.STAGE}}/requirements.yml
         --roles-path {{.ANSIBLE_DIR}}/{{.STAGE}}/roles/contrib --force
@@ -43,7 +43,7 @@ tasks:
       - task: check
     cmds:
       - >
-        pipenv run ansible-vault {{.ANSIBLE_COMMAND}} {{.ANSIBLE_DIR}}/{{.STAGE}}/vars/vars.yml
+        poetry run ansible-vault {{.ANSIBLE_COMMAND}} {{.ANSIBLE_DIR}}/{{.STAGE}}/vars/vars.yml
           --vault-password-file {{.VAULT-PASSWORD-FILE}}
 
   playbook:
@@ -53,7 +53,7 @@ tasks:
       - task: check
     cmds:
       - >
-        pipenv run ansible-playbook -vvv {{.ANSIBLE_DIR}}/{{.STAGE}}/deploy.yml
+        poetry run ansible-playbook -vvv {{.ANSIBLE_DIR}}/{{.STAGE}}/deploy.yml
         -i {{.ANSIBLE_DIR}}/{{.STAGE}}/inventory/all.yml
         --user={{.USER}}
         --private-key={{.PRIVATE_KEY_FILE}}

@@ -1,6 +1,6 @@
 # More info at https://jellyfin.org
 
-version: '3.8'
+version: "3.8"
 
 services:
   jellyfin:
@@ -16,6 +16,6 @@ services:
       - ${MEDIA_PATH}/Documentary:/documentary
       - ${MEDIA_PATH}/Music:/music
     ports:
-      - '8096:8096'
-      - '7359:7359/udp'
+      - "8096:8096"
+      - "7359:7359/udp"
     restart: always

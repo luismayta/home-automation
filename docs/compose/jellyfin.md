@@ -14,5 +14,5 @@
 ### Run
 
 ```bash
-pipenv run docker-compose -f docker-compose.yml -f provision/compose/jellyfin.yml up -d
+poetry run docker-compose -f docker-compose.yml -f provision/compose/jellyfin.yml up -d
 ```

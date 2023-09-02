@@ -18,7 +18,7 @@ confluence:
 # logo: docs/logo.png
 
 # License of this project
-license: 'LGPL-3.0'
+license: "LGPL-3.0"
 
 # Canonical GitHub repo
 github_repo: luismayta/home-automation
@@ -57,10 +57,10 @@ requirements: |-
 
 # Bulleted features to display
 features:
-  - 'service [komiser](docs/compose/komiser.md)'
-  - 'service [restic](docs/compose/restic.md)'
-  - 'service [portainer](docs/compose/portainer.md)'
-  - 'service [jellyfin](docs/compose/jellyfin.md)'
+  - "service [komiser](docs/compose/komiser.md)"
+  - "service [restic](docs/compose/restic.md)"
+  - "service [portainer](docs/compose/portainer.md)"
+  - "service [jellyfin](docs/compose/jellyfin.md)"
 
 # Short description of this project
 description: |-
@@ -71,4 +71,4 @@ usages:
   - docs/usage.md
 
 examples:
-  - 'docs/examples/common.md'
+  - "docs/examples/common.md"

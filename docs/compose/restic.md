@@ -14,7 +14,7 @@
 ### Run
 
 ```bash
-pipenv run docker-compose -f docker-compose.yml -f provision/compose/restic.yml up -d
+poetry run docker-compose -f docker-compose.yml -f provision/compose/restic.yml up -d
 ```
 
 ## Manage users
@@ -22,11 +22,11 @@ pipenv run docker-compose -f docker-compose.yml -f provision/compose/restic.yml 
 ### Add user
 
 ```bash
-pipenv run docker-compose -f docker-compose.yml -f provision/compose/restic.yml exec -it restic create_user myuser mypassword
+poetry run docker-compose -f docker-compose.yml -f provision/compose/restic.yml exec -it restic create_user myuser mypassword
 ```
 
 ### Delete user
 
 ```bash
-pipenv run docker-compose -f docker-compose.yml -f provision/compose/restic.yml exec -it restic delete_user myuser
+poetry run docker-compose -f docker-compose.yml -f provision/compose/restic.yml exec -it restic delete_user myuser
 ```
