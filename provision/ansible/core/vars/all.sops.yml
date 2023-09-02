@@ -15,10 +15,10 @@ sops:
   azure_kv: []
   hc_vault: []
   age: []
-  lastmodified: '2022-01-22T22:53:40Z'
+  lastmodified: "2022-01-22T22:53:40Z"
   mac: ENC[AES256_GCM,data:DpfuXOgFdvGII1HRBciLC7BTltMYI16OON4uZB5L9BOzqdoIqvOquJwBOP+9W86HnGb2+K0pNtKonxGhTVRhffGzcbjkEpWNafAogPDckOrHJRVKWEE6dOelJe2SEXIdypgkMcIYIx6O7X1e6cDHEg5K6az5331wIc/W2KO4f4E=,iv:5G+cm4S1GV42b71Ofz4KqYpadG7Gl+6OsKzX3e8OPx0=,tag:YbroG4GAk+9VTKAN+Bs78A==,type:str]
   pgp:
-    - created_at: '2021-12-27T23:07:09Z'
+    - created_at: "2021-12-27T23:07:09Z"
       enc: |
         -----BEGIN PGP MESSAGE-----
 

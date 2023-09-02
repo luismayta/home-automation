@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   dnsmasq:
@@ -7,7 +7,7 @@ services:
     restart: always
     ports:
       # The DNS (netstat -anlp | grep -w LISTEN => If consumed by systemd: https://medium.com/@niktrix/getting-rid-of-systemd-resolved-consuming-port-53-605f0234f32f)
-      - '127.0.0.1:53:53'
+      - "127.0.0.1:53:53"
     volumes:
       - ./provision/dnsmasq/etc/dnsmasq.conf:/etc/dnsmasq.conf
       - ${APPDATA_PATH}/dnsmasq/var/log:/var/log
@@ -20,7 +20,7 @@ services:
       options:
         max-size: 100m
     healthcheck:
-      test: ['CMD', 'dig', '@localhost', 'localhost', '+norec']
+      test: ["CMD", "dig", "@localhost", "localhost", "+norec"]
       interval: 5m
       timeout: 10s
       retries: 3

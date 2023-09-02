@@ -16,7 +16,15 @@
 #### Sync Markdown with confluence
 
 ```{.bash}
-task mark:sync
+task confluence:sync:all
+```
+
+### Python
+
+#### Format syntax code python with [black](https://github.com/psf/black)
+
+```{.bash}
+task python:fmt -- {{file_name or path}}
 ```
 
 ### Diagrams
@@ -25,6 +33,14 @@ task mark:sync
 
 ```{.bash}
 task diagrams:publish
+```
+
+### Mkdocs
+
+#### Generate Website
+
+```{.bash}
+task docs:build
 ```
 
 ### Changelog
@@ -61,9 +77,9 @@ task version:minor
 task version:patch
 ```
 
-### Ansible
+### Docs
 
-#### Deploy
+#### build
 
 ```{.bash}
 task ansible:playbook TAGS=deploy PRIVATE_KEY_FILE=${KEYBASE_VOLUME_PATH}/private/luismayta/ssh/me

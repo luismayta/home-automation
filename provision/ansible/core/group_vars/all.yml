@@ -2,115 +2,115 @@
 # restic
 restic_port: 8010
 
-common_user: '{{ user }}'
+common_user: "{{ user }}"
 
-authorization_user: '{{ user }}'
-authorization_key_public: '~/.ssh/id_rsa.pub'
-authorization_key_private: '~/.ssh/id_rsa'
+authorization_user: "{{ user }}"
+authorization_key_public: "~/.ssh/id_rsa.pub"
+authorization_key_private: "~/.ssh/id_rsa"
 
-openssl_user: '{{ user }}'
-openssl_group: '{{ user }}'
-openssl_domain: 'hadenlabs.local'
-openssl_fqdn: '*.hadenlabs.local'
-openssl_path_ssl: '/etc/keys/ssl'
-openssl_certfile: '{{ openssl_path_ssl }}/{{ openssl_domain }}.crt'
-openssl_keyfile: '{{ openssl_path_ssl }}/{{ openssl_domain }}.key'
+openssl_user: "{{ user }}"
+openssl_group: "{{ user }}"
+openssl_domain: "hadenlabs.local"
+openssl_fqdn: "*.hadenlabs.local"
+openssl_path_ssl: "/etc/keys/ssl"
+openssl_certfile: "{{ openssl_path_ssl }}/{{ openssl_domain }}.crt"
+openssl_keyfile: "{{ openssl_path_ssl }}/{{ openssl_domain }}.key"
 
-minio_root_path: '/media/eviljasperdisk/minio'
-minio_data_path: '{{ minio_root_path }}/data'
+minio_root_path: "/media/eviljasperdisk/minio"
+minio_data_path: "{{ minio_root_path }}/data"
 
-consul_root_path: '/media/eviljasperdisk/consul'
-consul_data_path: '{{ consul_root_path }}/data'
+consul_root_path: "/media/eviljasperdisk/consul"
+consul_data_path: "{{ consul_root_path }}/data"
 
 common_packages:
-  - 'vim'
-  - 'git'
+  - "vim"
+  - "git"
 
-docker_compose_version: '2.2.3'
+docker_compose_version: "2.2.3"
 
 docker_users:
-  - '{{ user }}'
+  - "{{ user }}"
 
 common_create_files:
-  - path: '/home/{{ user }}/home-automation/.env'
-    owner: '{{ user }}'
-    mode: '0775'
+  - path: "/home/{{ user }}/home-automation/.env"
+    owner: "{{ user }}"
+    mode: "0775"
 
 common_create_directories:
-  - path: '/media/eviljasperdisk/appdata'
-    owner: '{{ user }}'
-    mode: '0775'
-  - path: '/media/eviljasperdisk/data'
-    owner: '{{ user }}'
-    mode: '0775'
-  - path: '/media/eviljasperdisk/data/timemachine'
-    owner: '{{ user }}'
-    mode: '0775'
-  - path: '/media/eviljasperdisk/data/study'
-    owner: '{{ user }}'
-    mode: '0775'
-  - path: '/media/eviljasperdisk/downloads'
-    owner: '{{ user }}'
-    mode: '0775'
-  - path: '/media/eviljasperdisk/media'
-    owner: '{{ user }}'
-    mode: '0775'
-  - path: '/media/eviljasperdisk/restick'
-    owner: '{{ user }}'
-    mode: '0775'
-  - path: '/media/eviljasperdisk/restick/data'
-    owner: '{{ user }}'
-    mode: '0775'
-  - path: '{{ consul_root_path }}'
-    owner: '{{ user }}'
-    mode: '0775'
-  - path: '{{ consul_data_path }}'
-    owner: '{{ user }}'
-    mode: '0775'
-  - path: '/media/eviljasperdisk/dnsmasq'
-    owner: '{{ user }}'
-    mode: '0775'
-  - path: '/media/eviljasperdisk/dnsmasq/var/log'
-    owner: '{{ user }}'
-    mode: '0775'
-  - path: '{{ minio_root_path }}'
-    owner: '{{ user }}'
-    mode: '0775'
-  - path: '{{ minio_data_path }}'
-    owner: '{{ user }}'
-    mode: '0775'
-  - path: '{{ minio_data_path }}/data1-1'
-    owner: '{{ user }}'
-    mode: '0775'
-  - path: '{{ minio_data_path }}/data1-2'
-    owner: '{{ user }}'
-    mode: '0775'
-  - path: '{{ minio_data_path }}/data2-1'
-    owner: '{{ user }}'
-    mode: '0775'
-  - path: '{{ minio_data_path }}/data2-2'
-    owner: '{{ user }}'
-    mode: '0775'
-  - path: '{{ minio_data_path }}/data3-1'
-    owner: '{{ user }}'
-    mode: '0775'
-  - path: '{{ minio_data_path }}/data3-2'
-    owner: '{{ user }}'
-    mode: '0775'
-  - path: '{{ minio_data_path }}/data4-1'
-    owner: '{{ user }}'
-    mode: '0775'
-  - path: '{{ minio_data_path }}/data4-2'
-    owner: '{{ user }}'
-    mode: '0775'
+  - path: "/media/eviljasperdisk/appdata"
+    owner: "{{ user }}"
+    mode: "0775"
+  - path: "/media/eviljasperdisk/data"
+    owner: "{{ user }}"
+    mode: "0775"
+  - path: "/media/eviljasperdisk/data/timemachine"
+    owner: "{{ user }}"
+    mode: "0775"
+  - path: "/media/eviljasperdisk/data/study"
+    owner: "{{ user }}"
+    mode: "0775"
+  - path: "/media/eviljasperdisk/downloads"
+    owner: "{{ user }}"
+    mode: "0775"
+  - path: "/media/eviljasperdisk/media"
+    owner: "{{ user }}"
+    mode: "0775"
+  - path: "/media/eviljasperdisk/restick"
+    owner: "{{ user }}"
+    mode: "0775"
+  - path: "/media/eviljasperdisk/restick/data"
+    owner: "{{ user }}"
+    mode: "0775"
+  - path: "{{ consul_root_path }}"
+    owner: "{{ user }}"
+    mode: "0775"
+  - path: "{{ consul_data_path }}"
+    owner: "{{ user }}"
+    mode: "0775"
+  - path: "/media/eviljasperdisk/dnsmasq"
+    owner: "{{ user }}"
+    mode: "0775"
+  - path: "/media/eviljasperdisk/dnsmasq/var/log"
+    owner: "{{ user }}"
+    mode: "0775"
+  - path: "{{ minio_root_path }}"
+    owner: "{{ user }}"
+    mode: "0775"
+  - path: "{{ minio_data_path }}"
+    owner: "{{ user }}"
+    mode: "0775"
+  - path: "{{ minio_data_path }}/data1-1"
+    owner: "{{ user }}"
+    mode: "0775"
+  - path: "{{ minio_data_path }}/data1-2"
+    owner: "{{ user }}"
+    mode: "0775"
+  - path: "{{ minio_data_path }}/data2-1"
+    owner: "{{ user }}"
+    mode: "0775"
+  - path: "{{ minio_data_path }}/data2-2"
+    owner: "{{ user }}"
+    mode: "0775"
+  - path: "{{ minio_data_path }}/data3-1"
+    owner: "{{ user }}"
+    mode: "0775"
+  - path: "{{ minio_data_path }}/data3-2"
+    owner: "{{ user }}"
+    mode: "0775"
+  - path: "{{ minio_data_path }}/data4-1"
+    owner: "{{ user }}"
+    mode: "0775"
+  - path: "{{ minio_data_path }}/data4-2"
+    owner: "{{ user }}"
+    mode: "0775"
 
 common_environment_dict:
-  path: '/home/{{ user }}/home-automation/.env'
-  owner: '{{ user }}'
-  group: '{{ user }}'
-  permissions: '0755'
+  path: "/home/{{ user }}/home-automation/.env"
+  owner: "{{ user }}"
+  group: "{{ user }}"
+  permissions: "0755"
   envs:
-    DOMAIN: '{{ openssl_domain }}'
+    DOMAIN: "{{ openssl_domain }}"
     APP_NAME: home-automation
     APPDATA_PATH: /media/eviljasperdisk/appdata
     DATA_PATH: /media/eviljasperdisk/data
@@ -120,34 +120,34 @@ common_environment_dict:
     TIMEZONE: America/Lima
     PUID: 1000
     PGID: 1000
-    PIHOLE_PASSWORD: '{{ pihole_password }}'
-    PIHOLE_IP: '{{ pihole_ip }}'
+    PIHOLE_PASSWORD: "{{ pihole_password }}"
+    PIHOLE_IP: "{{ pihole_ip }}"
     # restic
-    RESTIC_PORT: '{{ restic_port }}'
+    RESTIC_PORT: "{{ restic_port }}"
     # traefik
-    TRAEFIK_CERTFILE: '{{ openssl_certfile }}'
-    TRAEFIK_KEYFILE: '{{ openssl_keyfile }}'
+    TRAEFIK_CERTFILE: "{{ openssl_certfile }}"
+    TRAEFIK_KEYFILE: "{{ openssl_keyfile }}"
     # grafana
-    GRAFANA_SECURITY_ADMIN_USER: '{{ grafana_admin_user }}'
-    GRAFANA_SECURITY_ADMIN_PASSWORD: '{{ grafana_admin_password }}'
+    GRAFANA_SECURITY_ADMIN_USER: "{{ grafana_admin_user }}"
+    GRAFANA_SECURITY_ADMIN_PASSWORD: "{{ grafana_admin_password }}"
     GRAFANA_USERS_ALLOW_SIGN_UP: false
     # minio
-    MINIO_ROOT_PATH: '{{ minio_root_path }}'
-    MINIO_DATA_PATH: '{{ minio_data_path }}'
-    MINIO_ROOT_USER: '{{ minio_root_user }}'
-    MINIO_ROOT_PASSWORD: '{{ minio_root_password }}'
-    MINIO_ACCESS_KEY: '{{ minio_access_key }}'
-    MINIO_SECRET_KEY: '{{ minio_secret_key }}'
+    MINIO_ROOT_PATH: "{{ minio_root_path }}"
+    MINIO_DATA_PATH: "{{ minio_data_path }}"
+    MINIO_ROOT_USER: "{{ minio_root_user }}"
+    MINIO_ROOT_PASSWORD: "{{ minio_root_password }}"
+    MINIO_ACCESS_KEY: "{{ minio_access_key }}"
+    MINIO_SECRET_KEY: "{{ minio_secret_key }}"
     # consul
-    CONSUL_ROOT_PATH: '{{ consul_root_path }}'
-    CONSUL_DATA_PATH: '{{ consul_data_path }}'
+    CONSUL_ROOT_PATH: "{{ consul_root_path }}"
+    CONSUL_DATA_PATH: "{{ consul_data_path }}"
     # afp
-    AFP_USER: '{{ afp_username }}'
-    AFP_PASSWORD: '{{ afp_password }}'
+    AFP_USER: "{{ afp_username }}"
+    AFP_PASSWORD: "{{ afp_password }}"
 
 common_deployments:
-  - name: 'home-automation'
-    version: 'develop' # Could be a hash, branch or tag name
-    repo: 'git@github.com:luismayta/home-automation.git'
+  - name: "home-automation"
+    version: "develop" # Could be a hash, branch or tag name
+    repo: "git@github.com:luismayta/home-automation.git"
     force: yes
-    location: '/home/{{ user }}/home-automation'
+    location: "/home/{{ user }}/home-automation"

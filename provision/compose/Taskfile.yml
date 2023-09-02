@@ -1,6 +1,6 @@
 # https://taskfile.dev
 
-version: '3'
+version: "3"
 
 vars:
   COMPOSE_PIHOLE_FILE: provision/compose/pihole.yml
@@ -21,8 +21,8 @@ tasks:
     desc: Exist docker-compose
     run: once
     preconditions:
-      - sh: test "pipenv run command -v docker-compose"
-        msg: 'Please Install docker-compose'
+      - sh: test "poetry run command -v docker-compose"
+        msg: "Please Install docker-compose"
 
   service:
     desc: run command service
@@ -30,7 +30,7 @@ tasks:
     deps:
       - task: check
     cmds:
-      - cmd: pipenv run docker-compose -f docker-compose.yml -f {{.COMPOSE_SERVICE_FILE}} {{.CLI_ARGS}}
+      - cmd: poetry run docker-compose -f docker-compose.yml -f {{.COMPOSE_SERVICE_FILE}} {{.CLI_ARGS}}
 
   up:
     desc: up command service
@@ -38,7 +38,7 @@ tasks:
     deps:
       - task: check
     cmds:
-      - cmd: pipenv run docker-compose -f docker-compose.yml -f {{.COMPOSE_SERVICE_FILE}} up -d --remove-orphans
+      - cmd: poetry run docker-compose -f docker-compose.yml -f {{.COMPOSE_SERVICE_FILE}} up -d --remove-orphans
 
   down:
     desc: down command service
@@ -46,7 +46,7 @@ tasks:
     deps:
       - task: check
     cmds:
-      - cmd: pipenv run docker-compose -f docker-compose.yml -f {{.COMPOSE_SERVICE_FILE}} down
+      - cmd: poetry run docker-compose -f docker-compose.yml -f {{.COMPOSE_SERVICE_FILE}} down
 
   pihole:
     desc: run service pihole using command

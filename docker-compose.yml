@@ -1,10 +1,10 @@
-version: '3.8'
+version: "3.8"
 
 # common variables
 x-common-variables: &common-variables
-  PUID: '${PUID}'
-  PGID: '${PGID}'
-  TZ: '${TIMEZONE}'
+  PUID: "${PUID}"
+  PGID: "${PGID}"
+  TZ: "${TIMEZONE}"
 
 # logging common
 x-logging-common: &logging-common
@@ -13,22 +13,22 @@ x-logging-common: &logging-common
 # logging options
 x-logging-options: &logging-options
   fluentd-address: ${MACHINE_IP:-localhost}:24224
-  fluentd-async-connect: 'true'
+  fluentd-async-connect: "true"
 
 # minio common
 x-minio-common: &minio-common
   image: pixelchrome/minio-arm
   command: server --console-address ":9001" http://minio{1...2}/data{1...2}
   expose:
-    - '9000'
-    - '9001'
+    - "9000"
+    - "9001"
   environment:
     MINIO_ROOT_USER: ${MINIO_ROOT_USER}
     MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
     MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
     MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
   healthcheck:
-    test: ['CMD', 'curl', '-f', 'http://localhost:9000/minio/health/live']
+    test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
     interval: 30s
     timeout: 20s
     retries: 3
@@ -41,42 +41,42 @@ services:
     depends_on:
       - fluent-bit
     ports:
-      - '53:53/tcp'
-      - '53:53/udp'
-      - '80:80/tcp'
-      - '443:443/tcp'
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "80:80/tcp"
+      - "443:443/tcp"
     volumes:
-      - '/var/run/docker.sock:/var/run/docker.sock:ro'
-      - 'traefik:/etc/traefik/'
-      - '/etc/keys/ssl:/etc/traefik/certs'
-      - './provision/traefik/config/dynamic_config.yml:/etc/traefik/config/dynamic_config.yml'
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "traefik:/etc/traefik/"
+      - "/etc/keys/ssl:/etc/traefik/certs"
+      - "./provision/traefik/config/dynamic_config.yml:/etc/traefik/config/dynamic_config.yml"
     environment:
       <<: *common-variables
     command:
-      - '--global.checknewversion=true'
-      - '--global.sendanonymoususage=false'
-      - '--api.dashboard=true'
+      - "--global.checknewversion=true"
+      - "--global.sendanonymoususage=false"
+      - "--api.dashboard=true"
 
-      - '--providers.docker=true'
-      - '--providers.docker.exposedbydefault=false'
-      - '--providers.file.directory=/etc/traefik/config'
-      - '--providers.file.watch=true'
-      - '--entrypoints.dnstcp.address=:53/tcp'
-      - '--entrypoints.dnsudp.address=:53/udp'
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.file.directory=/etc/traefik/config"
+      - "--providers.file.watch=true"
+      - "--entrypoints.dnstcp.address=:53/tcp"
+      - "--entrypoints.dnsudp.address=:53/udp"
 
-      - '--entrypoints.http.address=:80/tcp'
+      - "--entrypoints.http.address=:80/tcp"
 
-      - '--entrypoints.http.http.redirections.entryPoint.to=https'
-      - '--entrypoints.http.http.redirections.entryPoint.scheme=https'
+      - "--entrypoints.http.http.redirections.entryPoint.to=https"
+      - "--entrypoints.http.http.redirections.entryPoint.scheme=https"
 
-      - '--entrypoints.https.address=:443/tcp'
+      - "--entrypoints.https.address=:443/tcp"
     labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.traefik.entrypoints=https'
-      - 'traefik.http.routers.traefik.tls=true'
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.entrypoints=https"
+      - "traefik.http.routers.traefik.tls=true"
 
-      - 'traefik.http.routers.traefik.rule=Host(`traefik.${DOMAIN}`)'
-      - 'traefik.http.routers.traefik.service=api@internal'
+      - "traefik.http.routers.traefik.rule=Host(`traefik.${DOMAIN}`)"
+      - "traefik.http.routers.traefik.service=api@internal"
     logging:
       <<: *logging-common
       options:
@@ -84,25 +84,36 @@ services:
         tag: traefik.logs
 
   netatalk:
-    image: cptactionhank/netatalk
+    image: dubodubonduponey/netatalk:v1
     container_name: netatalk
     hostname: netatalk
-    network_mode: host
+    restart: unless-stopped
     depends_on:
       - fluent-bit
     ports:
       - "548:548"
     volumes:
-      - ./provision/netatalk/afp.conf:/etc/afp.conf:ro
-      - ${DATA_PATH}/timemachine:/timemachine
-      - ${DATA_PATH}/study:/data
+      # - ./provision/netatalk/afp.conf:/data/afp.conf:ro
+      - ${DATA_PATH}/timemachine:/media/timemachine
+      - ${DATA_PATH}/study:/media/share
     environment:
       <<: *common-variables
-      AFP_UID: '${PUID}'
-      AFP_GID: '${PGID}'
-      AFP_USER: "${AFP_USER}"
-      AFP_PASSWORD: "${AFP_PASSWORD}"
-    restart: always
+      UIDS: "${PUID}"
+      GIDS: "${PGID}"
+      USERS: "${AFP_USER}"
+      PASSWORDS: "${AFP_PASSWORD}"
+      NAME: rpi
+      AVAHI_NAME: rpi
+    cap_add:
+      - NET_BIND_SERVICE
+      - CHOWN
+      - FOWNER
+      - SETUID
+      - SETGID
+      - DAC_OVERRIDE
+    cap_drop:
+      - ALL
+    network_mode: host
     logging:
       <<: *logging-common
       options:
@@ -116,23 +127,23 @@ services:
       - fluent-bit
     restart: always
     ports:
-      - '8500:8500'
-      - '8600:8600/tcp'
-      - '8600:8600/udp'
-    command: 'agent -config-file=/consul/config/server.json'
+      - "8500:8500"
+      - "8600:8600/tcp"
+      - "8600:8600/udp"
+    command: "agent -config-file=/consul/config/server.json"
     volumes:
-      - './provision/consul/config/server.json:/consul/config/server.json'
-      - 'consul-data:/consul/data/'
+      - "./provision/consul/config/server.json:/consul/config/server.json"
+      - "consul-data:/consul/data/"
     labels:
-      - 'traefik.enable=true'
+      - "traefik.enable=true"
 
-      - 'traefik.http.routers.consul.entrypoints=https'
-      - 'traefik.http.routers.consul.tls=true'
+      - "traefik.http.routers.consul.entrypoints=https"
+      - "traefik.http.routers.consul.tls=true"
 
-      - 'traefik.http.routers.consul.service=consul'
+      - "traefik.http.routers.consul.service=consul"
 
-      - 'traefik.http.routers.consul.rule=Host(`consul.${DOMAIN}`)'
-      - 'traefik.http.services.consul.loadbalancer.server.port=8500'
+      - "traefik.http.routers.consul.rule=Host(`consul.${DOMAIN}`)"
+      - "traefik.http.services.consul.loadbalancer.server.port=8500"
     logging:
       <<: *logging-common
       options:
@@ -147,14 +158,14 @@ services:
       - fluent-bit
     environment:
       <<: *common-variables
-      WEBPASSWORD: '${PIHOLE_PASSWORD}'
-      ServerIP: '${PIHOLE_IP}'
+      WEBPASSWORD: "${PIHOLE_PASSWORD}"
+      ServerIP: "${PIHOLE_IP}"
       VIRTUAL_HOST: pihole.${DOMAIN}
     # Volumes store your data between container upgrades
     volumes:
-      - '${APPDATA_PATH}/pihole/etc/pihole/:/etc/pihole/'
-      - '${APPDATA_PATH}/pihole/etc/dnsmasq.d/:/etc/dnsmasq.d/'
-      - './provision/pihole/etc-pihole/custom.list:/etc/pihole/custom.list'
+      - "${APPDATA_PATH}/pihole/etc/pihole/:/etc/pihole/"
+      - "${APPDATA_PATH}/pihole/etc/dnsmasq.d/:/etc/dnsmasq.d/"
+      - "./provision/pihole/etc-pihole/custom.list:/etc/pihole/custom.list"
     cap_add:
       - NET_ADMIN
     restart: unless-stopped
@@ -167,21 +178,21 @@ services:
         soft: 512
         hard: 1024
     labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.pihole.entrypoints=https'
-      - 'traefik.http.routers.pihole.tls=true'
-      - 'traefik.http.routers.pihole.rule=Host(`pihole.${DOMAIN}`)'
-      - 'traefik.http.routers.pihole.middlewares=pihole-prefix'
-      - 'traefik.http.middlewares.pihole-prefix.addPrefix.prefix=/admin'
-      - 'traefik.http.services.pihole.loadbalancer.server.port=80'
-      - 'traefik.http.services.pihole.loadbalancer.passHostHeader=true'
+      - "traefik.enable=true"
+      - "traefik.http.routers.pihole.entrypoints=https"
+      - "traefik.http.routers.pihole.tls=true"
+      - "traefik.http.routers.pihole.rule=Host(`pihole.${DOMAIN}`)"
+      - "traefik.http.routers.pihole.middlewares=pihole-prefix"
+      - "traefik.http.middlewares.pihole-prefix.addPrefix.prefix=/admin"
+      - "traefik.http.services.pihole.loadbalancer.server.port=80"
+      - "traefik.http.services.pihole.loadbalancer.passHostHeader=true"
 
-      - 'traefik.tcp.routers.dnstcp.entrypoints=dnstcp'
-      - 'traefik.tcp.routers.dnstcp.rule=HostSNI(`*`)'
-      - 'traefik.tcp.services.pihole.loadbalancer.server.port=53'
+      - "traefik.tcp.routers.dnstcp.entrypoints=dnstcp"
+      - "traefik.tcp.routers.dnstcp.rule=HostSNI(`*`)"
+      - "traefik.tcp.services.pihole.loadbalancer.server.port=53"
 
-      - 'traefik.udp.routers.dnsudp.entrypoints=dnsudp'
-      - 'traefik.udp.services.pihole.loadbalancer.server.port=53'
+      - "traefik.udp.routers.dnsudp.entrypoints=dnsudp"
+      - "traefik.udp.services.pihole.loadbalancer.server.port=53"
     logging:
       <<: *logging-common
       options:
@@ -200,28 +211,28 @@ services:
       - ${MEDIA_PATH}/Cartoons:/cartoons
       - ${MEDIA_PATH}/Documentary:/documentary
       - ${MEDIA_PATH}/Music:/music
-    network_mode: 'host'
+    network_mode: "host"
     depends_on:
       - traefik
       - pihole
       - fluent-bit
     ports:
       # for some reason jellyfin app doesn't work with traefik proxy, open port directly for local mobile clients
-      - '8096:8096'
-      - '7359:7359/udp'
+      - "8096:8096"
+      - "7359:7359/udp"
     environment:
       <<: *common-variables
     restart: unless-stopped
     labels:
-      - 'traefik.enable=true'
+      - "traefik.enable=true"
 
-      - 'traefik.http.routers.jellyfin.entrypoints=https'
-      - 'traefik.http.routers.jellyfin.tls=true'
+      - "traefik.http.routers.jellyfin.entrypoints=https"
+      - "traefik.http.routers.jellyfin.tls=true"
 
-      - 'traefik.http.routers.jellyfin.service=jellyfin'
+      - "traefik.http.routers.jellyfin.service=jellyfin"
 
-      - 'traefik.http.routers.jellyfin.rule=Host(`jellyfin.${DOMAIN}`)'
-      - 'traefik.http.services.jellyfin.loadbalancer.server.port=8096'
+      - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.${DOMAIN}`)"
+      - "traefik.http.services.jellyfin.loadbalancer.server.port=8096"
     logging:
       <<: *logging-common
       options:
@@ -237,26 +248,26 @@ services:
       - fluent-bit
     environment:
       <<: *common-variables
-      GF_SECURITY_ADMIN_USER: '${GRAFANA_SECURITY_ADMIN_USER}'
-      GF_SECURITY_ADMIN_PASSWORD: '${GRAFANA_SECURITY_ADMIN_PASSWORD}'
-      GF_USERS_ALLOW_SIGN_UP: '${GRAFANA_USERS_ALLOW_SIGN_UP}'
+      GF_SECURITY_ADMIN_USER: "${GRAFANA_SECURITY_ADMIN_USER}"
+      GF_SECURITY_ADMIN_PASSWORD: "${GRAFANA_SECURITY_ADMIN_PASSWORD}"
+      GF_USERS_ALLOW_SIGN_UP: "${GRAFANA_USERS_ALLOW_SIGN_UP}"
     volumes:
-      - 'grafana:/var/lib/grafana/'
-      - './provision/grafana/configs/datasources:/etc/grafana/provisioning/datasources'
-      - './provision/grafana/configs/dashboards:/etc/grafana/provisioning/dashboards'
+      - "grafana:/var/lib/grafana/"
+      - "./provision/grafana/configs/datasources:/etc/grafana/provisioning/datasources"
+      - "./provision/grafana/configs/dashboards:/etc/grafana/provisioning/dashboards"
     restart: unless-stopped
     ports:
-      - '3000:3000'
+      - "3000:3000"
     labels:
-      - 'traefik.enable=true'
+      - "traefik.enable=true"
 
-      - 'traefik.http.routers.grafana.entrypoints=https'
-      - 'traefik.http.routers.grafana.tls=true'
-      - 'traefik.http.routers.grafana.rule=Host(`grafana.${DOMAIN}`)'
+      - "traefik.http.routers.grafana.entrypoints=https"
+      - "traefik.http.routers.grafana.tls=true"
+      - "traefik.http.routers.grafana.rule=Host(`grafana.${DOMAIN}`)"
 
-      - 'traefik.http.routers.grafana.service=grafana'
+      - "traefik.http.routers.grafana.service=grafana"
 
-      - 'traefik.http.services.grafana.loadbalancer.server.port=3000'
+      - "traefik.http.services.grafana.loadbalancer.server.port=3000"
     logging:
       <<: *logging-common
       options:
@@ -270,7 +281,7 @@ services:
       - ./provision/loki/:/etc/loki/
     command: -config.file=/etc/loki/loki.yml
     ports:
-      - '3100:3100'
+      - "3100:3100"
 
   fluent-bit:
     image: fluent/fluent-bit
@@ -278,9 +289,9 @@ services:
     depends_on:
       - loki
     ports:
-      - '24224:24224'
-      - '24224:24224/udp'
-      - '2020:2020'
+      - "24224:24224"
+      - "24224:24224/udp"
+      - "2020:2020"
     configs:
       - source: fluent-bit
         target: /fluent-bit/etc/fluent-bit.conf
@@ -300,20 +311,20 @@ services:
       - ${APPDATA_PATH}/qbittorrent/config:/config
       - ${DOWNLOAD_PATH}:/downloads
     ports:
-      - '6881:6881'
-      - '6881:6881/udp'
-      - '8081:8081'
+      - "6881:6881"
+      - "6881:6881/udp"
+      - "8081:8081"
     restart: unless-stopped
     labels:
-      - 'traefik.enable=true'
+      - "traefik.enable=true"
 
-      - 'traefik.http.routers.qbittorrent.entrypoints=https'
-      - 'traefik.http.routers.qbittorrent.tls=true'
-      - 'traefik.http.routers.qbittorrent.rule=Host(`qbittorrent.${DOMAIN}`)'
+      - "traefik.http.routers.qbittorrent.entrypoints=https"
+      - "traefik.http.routers.qbittorrent.tls=true"
+      - "traefik.http.routers.qbittorrent.rule=Host(`qbittorrent.${DOMAIN}`)"
 
-      - 'traefik.http.routers.qbittorrent.service=qbittorrent'
+      - "traefik.http.routers.qbittorrent.service=qbittorrent"
 
-      - 'traefik.http.services.qbittorrent.loadbalancer.server.port=8081'
+      - "traefik.http.services.qbittorrent.loadbalancer.server.port=8081"
     logging:
       <<: *logging-common
       options:
@@ -343,23 +354,23 @@ services:
     volumes:
       - ./provision/minio/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     ports:
-      - '9000:9000'
-      - '9001:9001'
+      - "9000:9000"
+      - "9001:9001"
     depends_on:
       - traefik
       - fluent-bit
       - minio1
       - minio2
     labels:
-      - 'traefik.enable=true'
+      - "traefik.enable=true"
 
-      - 'traefik.http.routers.minio.entrypoints=https'
-      - 'traefik.http.routers.minio.tls=true'
-      - 'traefik.http.routers.minio.rule=Host(`minio.${DOMAIN}`)'
+      - "traefik.http.routers.minio.entrypoints=https"
+      - "traefik.http.routers.minio.tls=true"
+      - "traefik.http.routers.minio.rule=Host(`minio.${DOMAIN}`)"
 
-      - 'traefik.http.routers.minio.service=minio'
+      - "traefik.http.routers.minio.service=minio"
 
-      - 'traefik.http.services.minio.loadbalancer.server.port=9000'
+      - "traefik.http.services.minio.loadbalancer.server.port=9000"
     logging:
       <<: *logging-common
       options:
