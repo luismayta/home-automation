@@ -38,7 +38,7 @@ This is a list of plugins that need to be installed previously to enjoy all the 
 
 ## Usage
 
-# How to use this project
+# 🚀 How to use this project
 
 ```bash
 task setup
@@ -53,7 +53,13 @@ task setup
 <!-- Include: ./../disclaimer.md -->
 <!-- Include: ac:toc -->
 
-### Common
+## Common
+
+### Install Dependencies
+
+```bash
+task setup
+```
 
 ## Help
 
@@ -82,7 +88,7 @@ Using the given version number of `MAJOR.MINOR.PATCH`, we apply the following co
 
 ## Copyright
 
-Copyright © 2018-2023 [Hadenlabs](https://hadenlabs.com)
+Copyright © 2018-2025 [Hadenlabs](https://hadenlabs.com)
 
 ## Trademarks
 
